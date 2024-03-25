@@ -24,12 +24,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <!-- Show all executed SQL to console -->
         <property name="show_sql">true</property>
         <!-- Entity mapping -->
-        <mapping class="com.nguyennhatvuong1783.hibernateexample.Department"/>
+        <mapping class = "DAL.ThietBi"/>
     </session-factory>
 </hibernate-configuration>
 
-
-<root>
-    
-</root>
 
