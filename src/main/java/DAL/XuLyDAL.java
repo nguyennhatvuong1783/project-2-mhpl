@@ -11,38 +11,39 @@ import org.hibernate.Session;
  *
  * @author Nguyen Nhat Vuong
  */
-public class ThietBiDAL {
+public class XuLyDAL {
     Session session;
 
-    public ThietBiDAL() {
+    public XuLyDAL() {
         session = HibernateUtil.getSessionFactory().openSession();
     }
     
     public static void main(String[] args) {
     }
     
-    public List loadThietBi() {
-        List<ThietBi> thietBi;
+    public List loadXuLy() {
+        List<XuLy> xuLy;
         session.beginTransaction();
-        thietBi = session.createQuery("FROM ThietBi", ThietBi.class).list();
+        xuLy = session.createQuery("FROM XuLy", XuLy.class).list();
         session.getTransaction().commit();
-        return thietBi;
+        return xuLy;
     }
     
-    public ThietBi getThietBi(int maTB) {
-        ThietBi tb = session.get(ThietBi.class, maTB);
-        return tb;
+    public XuLy getXuLy(int maXL) {
+        XuLy xl = session.get(XuLy.class, maXL);
+        return xl;
     }
     
-    public void addThietBi(ThietBi tb) {
-        session.save(tb);   
+    public void addXuLy(XuLy xl) {
+        session.save(xl);   
     }
     
-    public void updateThietBi(ThietBi tb) {
-        session.update(tb);
+    public void updateXuLy(XuLy xl) {
+        session.update(xl);
     }
     
-    public void deleteThietBi(ThietBi tb) {
-        session.delete(tb);
+    public void deleteXuLy(XuLy xl) {
+        session.delete(xl);
     }
+    
 }
