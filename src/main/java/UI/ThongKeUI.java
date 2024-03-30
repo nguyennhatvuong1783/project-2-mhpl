@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package UI;
 
 import BLL.ThietBiBLL;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
-/**
- *
- * @author Nguyen Nhat Vuong
- */
-public class ThongKeUI extends JPanel{
+public class ThongKeUI extends JPanel {
     private ThietBiBLL thietBiBLL;
 
     public ThongKeUI() {
