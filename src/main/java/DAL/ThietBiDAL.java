@@ -17,10 +17,7 @@ public class ThietBiDAL {
     public ThietBiDAL() {
         session = HibernateUtil.getSessionFactory().openSession();
     }
-    
-    public static void main(String[] args) {
-    }
-    
+  
     public List loadThietBi() {
         List<ThietBi> thietBi;
         session.beginTransaction();

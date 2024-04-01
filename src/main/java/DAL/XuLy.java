@@ -33,24 +33,27 @@ public class XuLy {
     private String hinhThucXL;
     
     @Column
-    private int soTien;
+    private long soTien;
     
     @Column
     private Date ngayXL;
     
     @Column
     private boolean trangThaiXL;
+    
+    private int soluong;
 
     public XuLy() {
     }
 
-    public XuLy(int maXL, ThanhVien thanhVienXL, String hinhThucXL, int soTien, Date ngayXL, boolean trangThaiXL) {
+    public XuLy(int maXL, ThanhVien thanhVienXL, String hinhThucXL, long soTien, Date ngayXL, boolean trangThaiXL, int soluong) {
         this.maXL = maXL;
         this.thanhVienXL = thanhVienXL;
         this.hinhThucXL = hinhThucXL;
         this.soTien = soTien;
         this.ngayXL = ngayXL;
         this.trangThaiXL = trangThaiXL;
+        this.soluong = soluong;
     }
 
     public int getMaXL() {
@@ -77,11 +80,11 @@ public class XuLy {
         this.hinhThucXL = hinhThucXL;
     }
 
-    public int getSoTien() {
+    public long getSoTien() {
         return soTien;
     }
 
-    public void setSoTien(int soTien) {
+    public void setSoTien(long soTien) {
         this.soTien = soTien;
     }
 
@@ -101,4 +104,11 @@ public class XuLy {
         this.trangThaiXL = trangThaiXL;
     }
 
+    public int getSoluong(){
+        return soluong;
+    }
+    
+    public void setSoluong(int soluong){
+        this.soluong = soluong;
+    }
 }

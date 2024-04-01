@@ -18,8 +18,7 @@ public class XuLyDAL {
         session = HibernateUtil.getSessionFactory().openSession();
     }
     
-    public static void main(String[] args) {
-    }
+  
     
     public List loadXuLy() {
         List<XuLy> xuLy;

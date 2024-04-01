@@ -41,17 +41,31 @@ public class ThongTinSD {
     
     @Column
     private Date tgTra;
+    
+    //Bổ sung vài cái cho việc làm thống kê
+    private int soluong;
+    
+    private String khoa;
+    
+    private String nganh;
+    
+    private String moTaTB;
+   
 
     public ThongTinSD() {
     }
 
-    public ThongTinSD(int maTT, ThanhVien thanhVien, ThietBi thietBi, Date tgVao, Date tgMuon, Date tgTra) {
+    public ThongTinSD(int maTT, ThanhVien thanhVien, ThietBi thietBi, Date tgVao, Date tgMuon, Date tgTra, int soluong, String khoa, String nganh, String moTaTB) {
         this.maTT = maTT;
         this.thanhVienTTSD = thanhVienTTSD;
         this.thietBi = thietBi;
         this.tgVao = tgVao;
         this.tgMuon = tgMuon;
         this.tgTra = tgTra;
+        this.soluong = soluong;
+        this.khoa = khoa;
+        this.nganh = nganh;
+        this.moTaTB = moTaTB;
     }
 
     public int getMaTT() {
@@ -102,4 +116,36 @@ public class ThongTinSD {
         this.tgTra = tgTra;
     }
 
+    public int getSoluong(){
+        return soluong;
+    }
+    
+    public void setSoluong(int soluong){
+        this.soluong = soluong;
+    }
+
+    public String getKhoa() {
+        return khoa;
+    }
+
+    public void setKhoa(String khoa) {
+        this.khoa = khoa;
+    }
+    
+    public String getNganh() {
+        return nganh;
+    }
+
+    public void setNganh(String nganh) {
+        this.nganh = nganh;
+    }
+    
+    public String getMoTaTB() {
+        return moTaTB;
+    }
+
+    public void setMoTaTB(String moTaTB) {
+        this.moTaTB = moTaTB;
+    }
 }
+

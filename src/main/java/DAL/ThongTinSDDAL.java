@@ -18,8 +18,7 @@ public class ThongTinSDDAL {
         session = HibernateUtil.getSessionFactory().openSession();
     }
     
-    public static void main(String[] args) {
-    }
+ 
     
     public List loadThongTinSD() {
         List<ThongTinSD> thongTinSD;

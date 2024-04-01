@@ -18,8 +18,7 @@ public class ThanhVienDAL {
         session = HibernateUtil.getSessionFactory().openSession();
     }
     
-    public static void main(String[] args) {
-    }
+  
     
     public List loadThanhVien() {
         List<ThanhVien> thanhVien;
