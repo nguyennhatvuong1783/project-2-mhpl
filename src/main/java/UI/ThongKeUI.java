@@ -1,5 +1,9 @@
 package UI;
-
+/**
+ *
+ * @author Tran Duc Thanh
+ * MSSV 3121410451
+ */
 import javax.swing.*;
 import java.awt.*;
 

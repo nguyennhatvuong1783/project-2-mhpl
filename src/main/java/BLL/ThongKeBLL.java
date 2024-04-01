@@ -1,14 +1,14 @@
 package BLL;
-
+/**
+ *
+ * @author Tran Duc Thanh
+ * MSSV 3121410451
+ */
 import DAL.ThanhVien;
 import DAL.ThongTinSD;
 import DAL.XuLy;
 import java.util.List;
 
-/**
- *
- * @author Thanh Tran
- */
 public interface ThongKeBLL {
     
     public List<ThongTinSD> getListByThanhVien_TGVao();

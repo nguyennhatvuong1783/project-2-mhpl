@@ -1,7 +1,8 @@
 package DAL;
 /**
  *
- * @author Thanh Tran
+ * @author Tran Duc Thanh
+ * MSSV 3121410451
  */
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,7 +1,8 @@
 package UI;
 /**
  *
- * @author Thanh Tran
+ * @author Tran Duc Thanh
+ * MSSV 3121410451
  */
 import java.awt.CardLayout;
 import java.awt.Dimension;
