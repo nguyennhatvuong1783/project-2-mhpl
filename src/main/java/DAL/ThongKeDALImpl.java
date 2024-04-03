@@ -1,8 +1,7 @@
 package DAL;
 /**
  *
- * @author Tran Duc Thanh
- * MSSV 3121410451
+ * @author Thanh Tran
  */
 import java.util.ArrayList;
 import java.util.Date;
@@ -163,14 +162,17 @@ public class ThongKeDALImpl implements ThongKeDAL {
             Query<Object[]> query = session.createQuery(hql, Object[].class);
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
-                XuLy ttsd = new XuLy();
-                ttsd.setHinhThucXL((String) result[0]); 
-                ttsd.setSoTien((long) result[1]);
-                list.add(ttsd);
+                if (result[0] != null && result[1] != null) {
+                    XuLy xuLy = new XuLy();
+                    xuLy.setHinhThucXL((String) result[0]); 
+                    xuLy.setSoTien(((Number) result[1]).longValue());
+                    list.add(xuLy);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
+
 }
