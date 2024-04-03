@@ -17,6 +17,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         this.session = session;
     }
 
+    //==========================================================================
+    
     @Override
     public List<ThongTinSD> getListByThanhVien_TGVao() {
         List<ThongTinSD> list = new ArrayList<>();
@@ -36,6 +38,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         }
         return list;
     }
+    
+    //==========================================================================
     
     @Override
     public List<ThongTinSD> getListByThanhVien_Khoa() {
@@ -57,6 +61,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
     }
 
 
+    //==========================================================================
+    
     
     @Override
     public List<ThongTinSD> getListByThanhVien_Nganh() {
@@ -77,6 +83,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         return list;
     }
 
+    //==========================================================================
+    
     @Override
     public List<ThongTinSD> getListByThietBi_TGMuon() {
         List<ThongTinSD> list = new ArrayList<>();
@@ -97,6 +105,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         return list;
     }
 
+    //==========================================================================
+    
     @Override
     public List<ThongTinSD> getListByThietBi_Ten() {
         List<ThongTinSD> list = new ArrayList<>();
@@ -116,6 +126,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         return list;
     }
 
+    //==========================================================================
+    
     @Override
     public List<XuLy> getListByViPham_DaXyLy() {
         List<XuLy> list = new ArrayList<>();
@@ -135,6 +147,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         return list;
     }
 
+    //==========================================================================
+    
     @Override
     public List<XuLy> getListByViPham_DangXyLy() {
         List<XuLy> list = new ArrayList<>();
@@ -154,6 +168,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
         return list;
     }
 
+    //==========================================================================
+    
     @Override
     public List<XuLy> getListByViPham_Tien() {
         List<XuLy> list = new ArrayList<>();
