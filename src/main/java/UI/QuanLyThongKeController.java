@@ -47,8 +47,8 @@ public class QuanLyThongKeController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (ThongTinSD item : listItem) {
-                SimpleDateFormat chartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
+                SimpleDateFormat chartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
                 String chartDateTime = chartDateFormat.format(item.getTgVao());
                 
                 dataset.addValue(item.getSoluong(), "Thành viên", chartDateTime);
@@ -138,8 +138,8 @@ public class QuanLyThongKeController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (ThongTinSD item : listItem) {
-                SimpleDateFormat chartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
+                SimpleDateFormat chartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
                 String chartDateTime = chartDateFormat.format(item.getTgMuon());
                 
                 dataset.addValue(item.getSoluong(), "Thiết bị", chartDateTime);
