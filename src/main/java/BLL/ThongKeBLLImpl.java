@@ -42,8 +42,8 @@ public class ThongKeBLLImpl implements ThongKeBLL {
     }
 
     @Override
-    public List<ThongTinSD> getListByThietBi_Ten() {
-        return tkDAL.getListByThietBi_Ten();
+    public List<ThongTinSD> getListByThietBi_TenTB() {
+        return tkDAL.getListByThietBi_TenTB();
     }
 
     @Override

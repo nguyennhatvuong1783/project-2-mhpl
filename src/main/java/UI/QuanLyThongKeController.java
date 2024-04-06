@@ -22,8 +22,13 @@ import DAL.ThongKeDALImpl;
 import DAL.ThongTinSD;
 import DAL.XuLy;
 import java.awt.Font;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.ui.RectangleEdge;
 
 public class QuanLyThongKeController {
     private ThongKeBLL tkBLL = null;
@@ -32,6 +37,19 @@ public class QuanLyThongKeController {
     public QuanLyThongKeController() {
         this.tkDALImpl = new ThongKeDALImpl(HibernateUtil.getSessionFactory().openSession());
         this.tkBLL = new ThongKeBLLImpl(tkDALImpl);
+    }
+    
+    private double calculateHighestValue(DefaultCategoryDataset dataset) {
+        double highestValue = Double.MIN_VALUE;
+        for (int i = 0; i < dataset.getRowCount(); i++) {
+            for (int j = 0; j < dataset.getColumnCount(); j++) {
+                Number value = dataset.getValue(i, j);
+                if (value != null && value.doubleValue() > highestValue) {
+                    highestValue = value.doubleValue();
+                }
+            }
+        }
+        return highestValue;
     }
 
     //==========================================================================
@@ -45,7 +63,7 @@ public class QuanLyThongKeController {
                 SimpleDateFormat chartDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
                 chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
                 String chartDateTime = chartDateFormat.format(item.getTgVao());
-                
+
                 dataset.addValue(item.getSoluong(), "Thành viên", chartDateTime);
             }
         }
@@ -53,12 +71,30 @@ public class QuanLyThongKeController {
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Biểu đồ thống kê số lượng thành viên vào khu học tập theo thời gian".toUpperCase(),
                 "Thời gian", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
 
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
+
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -68,6 +104,8 @@ public class QuanLyThongKeController {
         jpnItem.validate();
         jpnItem.repaint();
     }
+
+
     
     //==========================================================================
     
@@ -84,12 +122,29 @@ public class QuanLyThongKeController {
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Biểu đồ thống kê số lượng thành viên vào khu học tập theo khoa".toUpperCase(),
                 "Khoa", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
 
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
-            BarRenderer renderer = (BarRenderer) plot.getRenderer();
-            renderer.setMaximumBarWidth(0.2);
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setMaximumBarWidth(0.2);
+        
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -115,12 +170,30 @@ public class QuanLyThongKeController {
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Biểu đồ thống kê số lượng thành viên vào khu học tập theo ngành".toUpperCase(),
                 "Ngành", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
         
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
+        
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
+        
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -142,7 +215,7 @@ public class QuanLyThongKeController {
                 SimpleDateFormat chartDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
                 chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
                 String chartDateTime = chartDateFormat.format(item.getTgMuon());
-                
+
                 dataset.addValue(item.getSoluong(), "Thiết bị", chartDateTime);
             }
         }
@@ -150,12 +223,29 @@ public class QuanLyThongKeController {
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Biểu đồ thống kê số lượng thiết bị đã được mượn theo thời gian".toUpperCase(),
                 "Thời gian", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
 
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
+        
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -165,28 +255,48 @@ public class QuanLyThongKeController {
         jpnItem.validate();
         jpnItem.repaint();
     }
+
+
     
     //==========================================================================
     
-    public void setDataToChart_ThietBi_LoaiTB(JPanel jpnItem) {
-        List<ThongTinSD> listItem = tkBLL.getListByThietBi_Ten();
+    public void setDataToChart_ThietBi_TenTB(JPanel jpnItem) {
+        List<ThongTinSD> listItem = tkBLL.getListByThietBi_TenTB();
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (ThongTinSD item : listItem) {
-                dataset.addValue(item.getSoluong(), "Thiết bị", item.getMoTaTB());
+                dataset.addValue(item.getSoluong(), "Thiết bị", item.getTenTB());
             }
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng thiết bị đã được mượn theo loại".toUpperCase(),
-                "Loại thiết bị", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                "Biểu đồ thống kê số lượng thiết bị đã được mượn theo tên".toUpperCase(),
+                "Tên thiết bị", "Số lượng",
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
         
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
+        
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
+        
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -205,19 +315,37 @@ public class QuanLyThongKeController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (XuLy item : listItem) {                
-                dataset.addValue(item.getSoluong(), "Hình thức", item.getHinhThucXL());
+                dataset.addValue(item.getSoluong(), "Vi phạm", item.getHinhThucXL());
             }
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng vi phạm đang xử lý theo hình thức".toUpperCase(),
+                "Biểu đồ thống kê số lượng vi phạm đang xử lý".toUpperCase(),
                 "Hình thức", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
 
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
+        
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
+        
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -236,19 +364,37 @@ public class QuanLyThongKeController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (XuLy item : listItem) {                
-                dataset.addValue(item.getSoluong(), "Hình thức", item.getHinhThucXL());
+                dataset.addValue(item.getSoluong(), "Vi phạm", item.getHinhThucXL());
             }
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng vi phạm đã được xử lý theo hình thức".toUpperCase(),
+                "Biểu đồ thống kê số lượng vi phạm đã được xử lý".toUpperCase(),
                 "Hình thức", "Số lượng",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
 
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         CategoryPlot plot = barChart.getCategoryPlot();
+        
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
+        
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 3;
+        yAxis.setUpperBound(highestValue);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 
@@ -274,7 +420,12 @@ public class QuanLyThongKeController {
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Biểu đồ thống kê số tiền bồi thường sau khi đã xử lý vi phạm".toUpperCase(),
                 "Hình thức", "Số tiền",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+                dataset, PlotOrientation.VERTICAL, true, true, false
+        );
+        barChart.getLegend().setPosition(RectangleEdge.TOP);
+        LegendTitle legend = barChart.getLegend();
+        Font legendFont = new Font("Arial", Font.BOLD, 13);
+        legend.setItemFont(legendFont);
 
         barChart.getTitle().setFont(new Font("Arial", Font.BOLD, 20));
         
@@ -282,7 +433,12 @@ public class QuanLyThongKeController {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
         
-    
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        domainAxis.setTickLabelFont(new Font("Arial", Font.BOLD, 13)); 
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); 
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 400));
 

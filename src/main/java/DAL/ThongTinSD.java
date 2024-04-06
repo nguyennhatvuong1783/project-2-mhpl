@@ -49,7 +49,7 @@ public class ThongTinSD {
     
     private String nganh;
     
-    private String moTaTB;
+    private String tenTB;
    
 
     public ThongTinSD() {
@@ -65,7 +65,7 @@ public class ThongTinSD {
         this.soluong = soluong;
         this.khoa = khoa;
         this.nganh = nganh;
-        this.moTaTB = moTaTB;
+        this.tenTB = tenTB;
     }
 
     public int getMaTT() {
@@ -140,12 +140,12 @@ public class ThongTinSD {
         this.nganh = nganh;
     }
     
-    public String getMoTaTB() {
-        return moTaTB;
+    public String getTenTB() {
+        return tenTB;
     }
 
-    public void setMoTaTB(String moTaTB) {
-        this.moTaTB = moTaTB;
+    public void setTenTB(String tenTB) {
+        this.tenTB = tenTB;
     }
 }
 

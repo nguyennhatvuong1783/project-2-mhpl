@@ -1,7 +1,6 @@
 package UI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ThongKeUI extends JPanel {
     
@@ -9,7 +8,7 @@ public class ThongKeUI extends JPanel {
     private javax.swing.JComboBox<String> ThietBiCbx;
     private javax.swing.JComboBox<String> ThanhVienCbx;
     private javax.swing.JPanel TGVao_Khoa_Nganh_Pnl;
-    private javax.swing.JPanel TGMuon_LoaiTB_Pnl;
+    private javax.swing.JPanel TGMuon_TenTB_Pnl;
     private javax.swing.JPanel DangXL_DaXL_Pnl;
     private javax.swing.JPanel SoTienViPham_Pnl;
     private javax.swing.JPanel ThietBiPnl;
@@ -24,7 +23,7 @@ public class ThongKeUI extends JPanel {
         initComponents();
         
         controller.setDataToChart_ThanhVien_TGVao(TGVao_Khoa_Nganh_Pnl);
-        controller.setDataToChart_ThietBi_TGMuon(TGMuon_LoaiTB_Pnl);     
+        controller.setDataToChart_ThietBi_TGMuon(TGMuon_TenTB_Pnl);     
         controller.setDataToChart_ViPham_DangXuLy(DangXL_DaXL_Pnl);
     }
     
@@ -61,16 +60,16 @@ public class ThongKeUI extends JPanel {
         if (selectedItem != null) {
             String selectedOption = selectedItem.toString();
             if (selectedOption.equals("Thời gian mượn")) {
-                TGMuon_LoaiTB_Pnl.removeAll();
-                TGMuon_LoaiTB_Pnl.revalidate(); 
-                TGMuon_LoaiTB_Pnl.repaint();
-                controller.setDataToChart_ThietBi_TGMuon(TGMuon_LoaiTB_Pnl);
+                TGMuon_TenTB_Pnl.removeAll();
+                TGMuon_TenTB_Pnl.revalidate(); 
+                TGMuon_TenTB_Pnl.repaint();
+                controller.setDataToChart_ThietBi_TGMuon(TGMuon_TenTB_Pnl);
 
-            } else if (selectedOption.equals("Loại thiết bị")) {
-                TGMuon_LoaiTB_Pnl.removeAll();
-                TGMuon_LoaiTB_Pnl.revalidate(); 
-                TGMuon_LoaiTB_Pnl.repaint();
-                controller.setDataToChart_ThietBi_LoaiTB(TGMuon_LoaiTB_Pnl);
+            } else if (selectedOption.equals("Tên thiết bị")) {
+                TGMuon_TenTB_Pnl.removeAll();
+                TGMuon_TenTB_Pnl.revalidate(); 
+                TGMuon_TenTB_Pnl.repaint();
+                controller.setDataToChart_ThietBi_TenTB(TGMuon_TenTB_Pnl);
             }
         }
     }                                          
@@ -118,7 +117,7 @@ public class ThongKeUI extends JPanel {
         
         ThietBiPnl = new javax.swing.JPanel();
         ThietBiCbx = new javax.swing.JComboBox<>();
-        TGMuon_LoaiTB_Pnl = new javax.swing.JPanel();
+        TGMuon_TenTB_Pnl = new javax.swing.JPanel();
         
         ThanhVienPnl = new javax.swing.JPanel();
         ThanhVienCbx = new javax.swing.JComboBox<>();
@@ -155,7 +154,7 @@ public class ThongKeUI extends JPanel {
                 .addContainerGap()
                 .addComponent(ThanhVienCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(563, Short.MAX_VALUE))
-            .addComponent(TGVao_Khoa_Nganh_Pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+            .addComponent(TGVao_Khoa_Nganh_Pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +162,7 @@ public class ThongKeUI extends JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(ThanhVienCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(TGVao_Khoa_Nganh_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TGVao_Khoa_Nganh_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(352, Short.MAX_VALUE))
         );
 
@@ -171,17 +170,17 @@ public class ThongKeUI extends JPanel {
 
     //==========================================================================
     
-        ThietBiCbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thời gian mượn", "Loại thiết bị" }));
+        ThietBiCbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thời gian mượn", "Tên thiết bị" }));
         ThietBiCbx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ThietBiCbxActionPerformed(evt);
             }
         });
 
-        TGMuon_LoaiTB_Pnl.setPreferredSize(new java.awt.Dimension(726, 273));
+        TGMuon_TenTB_Pnl.setPreferredSize(new java.awt.Dimension(726, 273));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(TGMuon_LoaiTB_Pnl);
-        TGMuon_LoaiTB_Pnl.setLayout(jPanel2Layout);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(TGMuon_TenTB_Pnl);
+        TGMuon_TenTB_Pnl.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
@@ -199,7 +198,7 @@ public class ThongKeUI extends JPanel {
                 .addContainerGap()
                 .addComponent(ThietBiCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(563, Short.MAX_VALUE))
-            .addComponent(TGMuon_LoaiTB_Pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+            .addComponent(TGMuon_TenTB_Pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +206,7 @@ public class ThongKeUI extends JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(ThietBiCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(TGMuon_LoaiTB_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TGMuon_TenTB_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(352, Short.MAX_VALUE))
         );
 
@@ -261,7 +260,7 @@ public class ThongKeUI extends JPanel {
             .addGroup(jPanelcLayout.createSequentialGroup()
                 .addGroup(jPanelcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DangXL_DaXL_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SoTienViPham_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SoTienViPham_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 123, Short.MAX_VALUE))
         );
         jPanelcLayout.setVerticalGroup(
@@ -270,9 +269,9 @@ public class ThongKeUI extends JPanel {
                 .addGap(21, 21, 21)
                 .addComponent(XuLyCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(DangXL_DaXL_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SoTienViPham_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DangXL_DaXL_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(SoTienViPham_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(420, Short.MAX_VALUE))
         );
 

@@ -19,7 +19,7 @@ public interface ThongKeBLL {
     
     public List<ThongTinSD> getListByThietBi_TGMuon();
 
-    public List<ThongTinSD> getListByThietBi_Ten();
+    public List<ThongTinSD> getListByThietBi_TenTB();
     
     public List<XuLy> getListByViPham_DaXuLy();
     
