@@ -42,7 +42,7 @@ public class QuanLyThongKeController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (ThongTinSD item : listItem) {
-                SimpleDateFormat chartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat chartDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
                 chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
                 String chartDateTime = chartDateFormat.format(item.getTgVao());
                 
@@ -139,7 +139,7 @@ public class QuanLyThongKeController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         if (listItem != null) {
             for (ThongTinSD item : listItem) {
-                SimpleDateFormat chartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat chartDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
                 chartDateFormat.setTimeZone(TimeZone.getTimeZone("GMT")); 
                 String chartDateTime = chartDateFormat.format(item.getTgMuon());
                 

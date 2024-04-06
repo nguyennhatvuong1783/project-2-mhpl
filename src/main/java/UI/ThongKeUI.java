@@ -30,7 +30,7 @@ public class ThongKeUI extends JPanel {
     
     //==========================================================================
     
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void XuLyCbxActionPerformed(java.awt.event.ActionEvent evt) {                                           
         Object selectedItem = XuLyCbx.getSelectedItem();
         if (selectedItem != null) {
             String selectedOption = selectedItem.toString();
@@ -56,7 +56,7 @@ public class ThongKeUI extends JPanel {
 
     //==========================================================================
     
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {       
+    private void ThietBiCbxActionPerformed(java.awt.event.ActionEvent evt) {       
         Object selectedItem = ThietBiCbx.getSelectedItem();
         if (selectedItem != null) {
             String selectedOption = selectedItem.toString();
@@ -77,7 +77,7 @@ public class ThongKeUI extends JPanel {
 
     //==========================================================================
     
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {   
+    private void ThanhVienCbxActionPerformed(java.awt.event.ActionEvent evt) {   
         Object selectedItem = ThanhVienCbx.getSelectedItem();
         if (selectedItem != null) {
             String selectedOption = selectedItem.toString();
@@ -130,7 +130,7 @@ public class ThongKeUI extends JPanel {
         ThanhVienCbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thời gian vào", "Khoa", "Ngành" }));
         ThanhVienCbx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                ThanhVienCbxActionPerformed(evt);
             }
         });
 
@@ -174,7 +174,7 @@ public class ThongKeUI extends JPanel {
         ThietBiCbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thời gian mượn", "Loại thiết bị" }));
         ThietBiCbx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                ThietBiCbxActionPerformed(evt);
             }
         });
 
@@ -220,7 +220,7 @@ public class ThongKeUI extends JPanel {
         XuLyCbx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang xử lý", "Đã xử lý" }));
         XuLyCbx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                XuLyCbxActionPerformed(evt);
             }
         });
 
