@@ -34,6 +34,9 @@ public class ThongTinSD {
     private ThietBi thietBi;
     
     @Column
+    private Date tgDatcho;
+    
+    @Column
     private Date tgVao;
     
     @Column
@@ -55,10 +58,11 @@ public class ThongTinSD {
     public ThongTinSD() {
     }
 
-    public ThongTinSD(int maTT, ThanhVien thanhVien, ThietBi thietBi, Date tgVao, Date tgMuon, Date tgTra, int soluong, String khoa, String nganh, String moTaTB) {
+    public ThongTinSD(int maTT, ThanhVien thanhVien, ThietBi thietBi, Date tgDatcho, Date tgVao, Date tgMuon, Date tgTra, int soluong, String khoa, String nganh, String moTaTB) {
         this.maTT = maTT;
         this.thanhVienTTSD = thanhVienTTSD;
         this.thietBi = thietBi;
+        this.tgDatcho = tgDatcho;
         this.tgVao = tgVao;
         this.tgMuon = tgMuon;
         this.tgTra = tgTra;
@@ -90,6 +94,14 @@ public class ThongTinSD {
 
     public void setMaTB(ThietBi thietBi) {
         this.thietBi = thietBi;
+    }
+    
+    public Date getTgDatcho() {
+        return tgDatcho;
+    }
+
+    public void setTgDatcho(Date tgDatcho) {
+        this.tgDatcho = tgDatcho;
     }
 
     public Date getTgVao() {

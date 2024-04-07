@@ -25,6 +25,9 @@ public class ThanhVien {
     private int maTV;
     
     @Column
+    private String password;
+    
+    @Column
     private String hoTen;
     
     @Column
@@ -32,6 +35,9 @@ public class ThanhVien {
     
     @Column
     private String nganh;
+    
+    @Column
+    private String email;
     
     @Column
     private int sdt;
@@ -45,11 +51,13 @@ public class ThanhVien {
     public ThanhVien() {
     }
 
-    public ThanhVien(int maTV, String hoTen, String khoa, String nganh, int sdt) {
+    public ThanhVien(int maTV, String password, String hoTen, String khoa, String nganh, String email, int sdt) {
         this.maTV = maTV;
+        this.password = password;
         this.hoTen = hoTen;
         this.khoa = khoa;
         this.nganh = nganh;
+        this.email = email;
         this.sdt = sdt;
     }
 
@@ -59,6 +67,14 @@ public class ThanhVien {
 
     public void setMaTV(int maTV) {
         this.maTV = maTV;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getHoTen() {
@@ -84,6 +100,14 @@ public class ThanhVien {
     public void setNganh(String nganh) {
         this.nganh = nganh;
     }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getSdt() {
         return sdt;
@@ -100,5 +124,5 @@ public class ThanhVien {
     public List<XuLy> getXuLy() {
         return xuLy;
     }
-    
+
 }
