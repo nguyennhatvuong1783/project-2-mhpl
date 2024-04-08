@@ -59,9 +59,13 @@ public class ThongKeDALImpl implements ThongKeDAL {
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 ThongTinSD ttsd = new ThongTinSD();
-                ttsd.setKhoa((String) result[0]); 
-                ttsd.setSoluong(((Number) result[1]).intValue());
-                list.add(ttsd);
+                if(result[0] != null && result[1] != null)
+                {
+                    ttsd.setKhoa((String) result[0]); 
+                    ttsd.setSoluong(((Number) result[1]).intValue());
+                    list.add(ttsd);
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,9 +88,13 @@ public class ThongKeDALImpl implements ThongKeDAL {
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 ThongTinSD ttsd = new ThongTinSD();
-                ttsd.setNganh((String) result[0]); 
-                ttsd.setSoluong(((Number) result[1]).intValue());
-                list.add(ttsd);
+                if(result[0] != null && result[1] != null)
+                {
+                    ttsd.setNganh((String) result[0]); 
+                    ttsd.setSoluong(((Number) result[1]).intValue());
+                    list.add(ttsd);
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,9 +145,11 @@ public class ThongKeDALImpl implements ThongKeDAL {
             for (Object[] result : results) {
                 ThongTinSD ttsd = new ThongTinSD();
                 if(result[0] != null && result[1] != null)
+                {
                     ttsd.setTenTB((String) result[0]); 
                     ttsd.setSoluong(((Number) result[1]).intValue());
                     list.add(ttsd);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,9 +170,13 @@ public class ThongKeDALImpl implements ThongKeDAL {
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 XuLy ttsd = new XuLy();
-                ttsd.setHinhThucXL((String) result[0]); 
-                ttsd.setSoluong(((Number) result[1]).intValue());
-                list.add(ttsd);
+                if (result[1] != null && result[0] != null) 
+                {
+                    ttsd.setHinhThucXL((String) result[0]); 
+                    ttsd.setSoluong(((Number) result[1]).intValue());
+                    list.add(ttsd);
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,9 +197,13 @@ public class ThongKeDALImpl implements ThongKeDAL {
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 XuLy ttsd = new XuLy();
-                ttsd.setHinhThucXL((String) result[0]); 
-                ttsd.setSoluong(((Number) result[1]).intValue());
-                list.add(ttsd);
+                if (result[1] != null && result[0] != null) 
+                {
+                    ttsd.setHinhThucXL((String) result[0]); 
+                    ttsd.setSoluong(((Number) result[1]).intValue());
+                    list.add(ttsd);
+                }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,7 +225,8 @@ public class ThongKeDALImpl implements ThongKeDAL {
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 XuLy xuLy = new XuLy();            
-                if (result[1] != null && result[0] != null) {
+                if (result[1] != null && result[0] != null) 
+                {
                     xuLy.setSoTien(((Number) result[1]).longValue());
                     xuLy.setHinhThucXL((String) result[0]); 
                     list.add(xuLy);

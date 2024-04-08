@@ -1,5 +1,9 @@
 package UI;
-
+/**
+ *
+ * @author Tran Duc Thanh
+ * MSSV 3121410451
+ */
 import javax.swing.*;
 
 public class ThongKeUI extends JPanel {
@@ -162,7 +166,7 @@ public class ThongKeUI extends JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(ThanhVienCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(TGVao_Khoa_Nganh_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TGVao_Khoa_Nganh_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(352, Short.MAX_VALUE))
         );
 
@@ -206,7 +210,7 @@ public class ThongKeUI extends JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(ThietBiCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(TGMuon_TenTB_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TGMuon_TenTB_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(352, Short.MAX_VALUE))
         );
 
@@ -269,9 +273,9 @@ public class ThongKeUI extends JPanel {
                 .addGap(21, 21, 21)
                 .addComponent(XuLyCbx, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(DangXL_DaXL_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DangXL_DaXL_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(SoTienViPham_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SoTienViPham_Pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(420, Short.MAX_VALUE))
         );
 

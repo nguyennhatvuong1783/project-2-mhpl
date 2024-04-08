@@ -69,7 +69,7 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng thành viên vào khu học tập theo thời gian".toUpperCase(),
+                "thống kê số lượng thành viên vào khu học tập theo thời gian".toUpperCase(),
                 "Thời gian", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
@@ -120,7 +120,7 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng thành viên vào khu học tập theo khoa".toUpperCase(),
+                "thống kê số lượng thành viên vào khu học tập theo khoa".toUpperCase(),
                 "Khoa", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
@@ -168,7 +168,7 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng thành viên vào khu học tập theo ngành".toUpperCase(),
+                "thống kê số lượng thành viên vào khu học tập theo ngành".toUpperCase(),
                 "Ngành", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
@@ -221,7 +221,7 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng thiết bị đã được mượn theo thời gian".toUpperCase(),
+                "thống kê số lượng thiết bị đã được mượn theo thời gian".toUpperCase(),
                 "Thời gian", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
@@ -271,7 +271,7 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng thiết bị đã được mượn theo tên".toUpperCase(),
+                "thống kê số lượng thiết bị đã được mượn theo tên".toUpperCase(),
                 "Tên thiết bị", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
@@ -320,8 +320,8 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng vi phạm đang xử lý".toUpperCase(),
-                "Hình thức", "Số lượng",
+                "thống kê số lượng vi phạm đang xử lý".toUpperCase(),
+                "Vi phạm", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
         barChart.getLegend().setPosition(RectangleEdge.TOP);
@@ -369,8 +369,8 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số lượng vi phạm đã được xử lý".toUpperCase(),
-                "Hình thức", "Số lượng",
+                "thống kê số lượng vi phạm đã được xử lý".toUpperCase(),
+                "Vi phạm", "Số lượng",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
         barChart.getLegend().setPosition(RectangleEdge.TOP);
@@ -418,8 +418,8 @@ public class QuanLyThongKeController {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Biểu đồ thống kê số tiền bồi thường sau khi đã xử lý vi phạm".toUpperCase(),
-                "Hình thức", "Số tiền",
+                "thống kê số tiền bồi thường sau khi đã xử lý vi phạm".toUpperCase(),
+                "Vi phạm", "Số tiền",
                 dataset, PlotOrientation.VERTICAL, true, true, false
         );
         barChart.getLegend().setPosition(RectangleEdge.TOP);
