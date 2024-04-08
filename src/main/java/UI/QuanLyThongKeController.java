@@ -433,6 +433,11 @@ public class QuanLyThongKeController {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setMaximumBarWidth(0.2);
         
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        double highestValue = calculateHighestValue(dataset) + 200000;
+        yAxis.setUpperBound(highestValue);
+        
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setMaximumCategoryLabelWidthRatio((float) 1.0);
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);

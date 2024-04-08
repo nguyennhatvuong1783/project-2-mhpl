@@ -4,7 +4,6 @@ package BLL;
  * @author Tran Duc Thanh
  * MSSV 3121410451
  */
-import DAL.ThanhVien;
 import DAL.ThongKeDAL;
 import DAL.ThongTinSD;
 import DAL.XuLy;
