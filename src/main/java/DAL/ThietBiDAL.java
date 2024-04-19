@@ -17,32 +17,29 @@ public class ThietBiDAL {
     public ThietBiDAL() {
         session = HibernateUtil.getSessionFactory().openSession();
     }
-    
-    public static void main(String[] args) {
-    }
-    
-    public List readDepartment() {
+  
+    public List loadThietBi() {
         List<ThietBi> thietBi;
         session.beginTransaction();
-        thietBi = session.createQuery("FROM Department", ThietBi.class).list();
+        thietBi = session.createQuery("FROM ThietBi", ThietBi.class).list();
         session.getTransaction().commit();
         return thietBi;
     }
     
-    public ThietBi getCategory(int maTB) {
-        ThietBi d = session.get(ThietBi.class, maTB);
-        return d;
+    public ThietBi getThietBi(int maTB) {
+        ThietBi tb = session.get(ThietBi.class, maTB);
+        return tb;
     }
     
-    public void createDepartment(ThietBi tb) {
+    public void addThietBi(ThietBi tb) {
         session.save(tb);   
     }
     
-    public void updateDepartment(ThietBi tb) {
+    public void updateThietBi(ThietBi tb) {
         session.update(tb);
     }
     
-    public void deleteDepartment(ThietBi tb) {
+    public void deleteThietBi(ThietBi tb) {
         session.delete(tb);
     }
 }

@@ -2,19 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package UI;
 
-import UI.MainUI;
+import BLL.XuLyBLL;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Nguyen Nhat Vuong
  */
-public class Main {
-    public static void main(String[] args) {
-     new MainUI();
-   
+public class XuLyUI extends JPanel{
+    private XuLyBLL xuLyBLL;
+
+    public XuLyUI() {
+        xuLyBLL = new XuLyBLL();
+        initComponents();
     }
     
-          
+    public void initComponents() {
+    }
 
 }

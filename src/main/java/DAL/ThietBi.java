@@ -4,65 +4,70 @@
  */
 package DAL;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Data;
 
 /**
  *
  * @author Nguyen Nhat Vuong
  */
+@Data
 @Entity
-@Table (name = "thietbi")
-public class ThietBi implements Serializable{
+@Table(name = "thietbi")
+public class ThietBi {
     @Id
-    private int MaTB;
+    private int maTB;
     
     @Column
-    private String TenTB;
+    private String tenTB;
     
     @Column
-    private String MoTaTB;
+    private String moTaTB;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "thietBi")
+    private List<ThongTinSD> thongTinSD;
 
     public ThietBi() {
     }
 
-    public ThietBi(int MaTB, String TenTB, String MoTaTB) {
-        this.MaTB = MaTB;
-        this.TenTB = TenTB;
-        this.MoTaTB = MoTaTB;
+    public ThietBi(int maTB, String tenTB, String moTaTB) {
+        this.maTB = maTB;
+        this.tenTB = tenTB;
+        this.moTaTB = moTaTB;
     }
-    
-    
 
     public int getMaTB() {
-        return MaTB;
+        return maTB;
     }
 
-    public void setMaTB(int MaTB) {
-        this.MaTB = MaTB;
+    public void setMaTB(int maTB) {
+        this.maTB = maTB;
     }
 
     public String getTenTB() {
-        return TenTB;
+        return tenTB;
     }
 
     public void setTenTB(String tenTB) {
-        this.TenTB = tenTB;
+        this.tenTB = tenTB;
     }
 
     public String getMoTaTB() {
-        return MoTaTB;
+        return moTaTB;
     }
 
-    public void setMoTaTB(String MoTaTB) {
-        this.MoTaTB = MoTaTB;
+    public void setMoTaTB(String moTaTB) {
+        this.moTaTB = moTaTB;
     }
     
-    
-    
-    
-            
-    
+    public List<ThongTinSD> getThongTinSD() {
+        return thongTinSD;
+    }
     
 }

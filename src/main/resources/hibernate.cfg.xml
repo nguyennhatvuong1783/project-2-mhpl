@@ -24,8 +24,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <!-- Show all executed SQL to console -->
         <property name="show_sql">true</property>
         <!-- Entity mapping -->
-        <mapping class = "DAL.ThietBi"/>
+        <mapping class="DAL.ThanhVien"/>
+        <mapping class="DAL.XuLy"/>
+        <mapping class="DAL.ThongTinSD"/>
+        <mapping class="DAL.ThietBi"/>
     </session-factory>
 </hibernate-configuration>
 
-
+<root>
+    
+</root>
