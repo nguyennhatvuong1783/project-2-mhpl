@@ -28,6 +28,9 @@ public class Main {
         }
         Main m = new Main();
         m.listThietBi();
+        //m.addThietBi();
+        //m.deleteThietBi();
+        m.updateThietBi();
     }
     
     public void listThietBi(){
@@ -50,5 +53,61 @@ public class Main {
             session.close();
         }
     }
+    
+    public void addThietBi(){
+         Session session = factory.openSession();
+         Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            ThietBi tb = new ThietBi(1000004, "test", "tttttttt");
+            session.save(tb);
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if(tx!=null) tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+    
+    public void deleteThietBi(){
+         Session session = factory.openSession();
+         Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            ThietBi tb = session.get(ThietBi.class, 1000004);
+            if(tb!=null){
+                 session.delete(tb);
+            }
+           
+           tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if(tx!=null) tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+        
+     public void updateThietBi(){
+         Session session = factory.openSession();
+         Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            ThietBi tb = session.get(ThietBi.class, 1000004);
+            if(tb!=null){
+                 tb.setTenTB("test1");
+                 session.update(tb);
+            }
+           
+           tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if(tx!=null) tx.rollback();
+        } finally {
+            session.close();
+        }
+    }
+        
         
 }
