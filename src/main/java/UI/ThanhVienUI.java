@@ -5,7 +5,11 @@
 package UI;
 
 import BLL.ThanhVienBLL;
+import BLL.ThietBiBLL;
 import BLL.ThongTinSDBLL;
+import DAL.TTSD;
+import DAL.ThietBi;
+import DAL.ThongTinSD;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
@@ -20,38 +24,50 @@ import javax.swing.table.TableRowSorter;
 public class ThanhVienUI extends JPanel{
     private ThanhVienBLL thanhVienBLL;
     private ThongTinSDBLL thongTinBLL;
+    private ThietBiBLL thietbiBLL;
     DefaultTableModel dtm;
     public ThanhVienUI() {
         thanhVienBLL = new ThanhVienBLL();
         thongTinBLL = new ThongTinSDBLL();
         initComponents();
         onload();
-        setColumnEditable(false);
     }
     public DefaultTableModel loadTable(){
         List listThanhVien = thanhVienBLL.loadThanhVien();
         Object[][] datamodel;
         datamodel = thanhVienBLL.convertList(listThanhVien);
         String[] title = {"Mã thành viên", "Tên thành viên", "Password","Email","Số điện thoại","Khoa","Ngành"};
-        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        DefaultTableModel model = new DefaultTableModel(datamodel, title){
+            public boolean isCellEditable(int row, int column)
+                {
+                  return false;
+                }
+       };	
         return model;
     }
     public void onload(){
-        dtm=loadTable();
+        dtm=loadTable();	
         jTable.setAutoCreateRowSorter(true);
         jTable.setModel(dtm);
+        
         for (int i = 0; i < jTable.getColumnCount(); i++) {
         TableColumn column = jTable.getColumnModel().getColumn(i);
         column.setCellEditor(null);
+        txtMaTV.setEditable(false);
+        txtTenTV.setEditable(false);
+        txtPassTV.setEditable(false);
+        txtEmailTV.setEditable(false);
+        txtKhoaTV.setEditable(false);
+        txtNganhTV.setEditable(false);
+        txtSdtTV.setEditable(false);
+        txtMaTV.setEnabled(false);
+        txtTenTV.setEnabled(false);
+        txtPassTV.setEnabled(false);
+        txtEmailTV.setEnabled(false);
+        txtKhoaTV.setEnabled(false);
+        txtNganhTV.setEnabled(false);
+        txtSdtTV.setEnabled(false);
     }
-    }
-    private void setColumnEditable(boolean editable) {
-        TableColumnModel columnModel = jTable.getColumnModel();
-        int columnCount = columnModel.getColumnCount();
-        for (int i = 0; i < columnCount; i++) {
-            TableColumn column = columnModel.getColumn(i);
-            column.setCellEditor(editable ? jTable.getDefaultEditor(Object.class) : null);
-        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -89,19 +105,19 @@ public class ThanhVienUI extends JPanel{
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtMaTT = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txtTenTB = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtDatcho = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        txtVao = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        txtMuon = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtTra = new javax.swing.JTextField();
+        cbTB = new javax.swing.JComboBox<>();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -234,7 +250,7 @@ public class ThanhVienUI extends JPanel{
 
         jLabel19.setText("Tgian trả :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -252,12 +268,12 @@ public class ThanhVienUI extends JPanel{
                                 .addComponent(jLabel4))
                             .addGap(34, 34, 34)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(txtMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel5)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtTenTV))
+                                    .addComponent(txtTenTV, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(txtKhoaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,15 +283,15 @@ public class ThanhVienUI extends JPanel{
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel10)
                             .addGap(40, 40, 40)
-                            .addComponent(txtSdtTV))
+                            .addComponent(txtSdtTV, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel6))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtEmailTV)
-                                .addComponent(txtPassTV))))
+                                .addComponent(txtPassTV)
+                                .addComponent(txtEmailTV))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11)
@@ -284,7 +300,7 @@ public class ThanhVienUI extends JPanel{
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addGroup(layout.createSequentialGroup()
@@ -292,30 +308,29 @@ public class ThanhVienUI extends JPanel{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel15)
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel16)
                                 .addComponent(jLabel17)
                                 .addComponent(jLabel18)
-                                .addComponent(jLabel19))
+                                .addComponent(jLabel19)
+                                .addComponent(jLabel2))
                             .addGap(8, 8, 8)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField14)
-                                .addComponent(jTextField15)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField12)
-                                .addComponent(jTextField13)))
-                        .addComponent(jLabel13)
-                        .addComponent(jLabel15)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(40, 40, 40)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel14)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(3, 3, 3))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbTB, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(3, 3, 3))
+                                .addComponent(txtMuon)
+                                .addComponent(txtTra)
+                                .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDatcho)
+                                .addComponent(txtVao)))))
                 .addGap(88, 88, 88))
             .addGroup(layout.createSequentialGroup()
                 .addGap(317, 317, 317)
@@ -370,33 +385,33 @@ public class ThanhVienUI extends JPanel{
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDatcho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtVao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMuon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFindTV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
@@ -430,7 +445,45 @@ public class ThanhVienUI extends JPanel{
             txtSdtTV.setText(jTable.getModel().getValueAt(i, 4).toString());
             txtKhoaTV.setText(jTable.getModel().getValueAt(i, 5).toString());
             txtNganhTV.setText(jTable.getModel().getValueAt(i, 6).toString());
-            
+            TTSD tt = thongTinBLL.getTTSDByMaTV(Integer.parseInt(txtMaTV.getText()));
+            if (tt ==null){
+            txtMaTT.setText("N/A");
+            txtTenTB.setText("N/A");
+            txtDatcho.setText("N/A");
+            txtVao.setText("N/A");
+            txtMuon.setText("N/A");
+            txtTra.setText("N/A");
+            }
+            if (tt.getMaTT() != 0){
+            txtMaTT.setText(String.valueOf(tt.getMaTT()));
+            } else{
+                txtMaTT.setText("N/A");
+            }
+            if (tt.getTgDatcho() != null) {
+                txtDatcho.setText(tt.getTgDatcho().toString());
+            } else {
+                txtDatcho.setText("N/A"); 
+            }
+
+            if (tt.getTgVao() != null) {
+                txtVao.setText(tt.getTgVao().toString());
+            } else {
+                txtVao.setText("N/A"); 
+            }
+
+            if (tt.getTgMuon() != null) {
+                txtMuon.setText(tt.getTgMuon().toString());
+            } else {
+                txtMuon.setText("N/A");
+            }
+
+            if (tt.getTgTra() != null) {
+                txtTra.setText(tt.getTgTra().toString());
+            } else {
+                txtTra.setText("N/A"); 
+            }
+
+            cbTB.setSelectedItem(String.valueOf(tt.getMaTB()));
         }
     }//GEN-LAST:event_jTableMouseClicked
 
@@ -443,11 +496,11 @@ public class ThanhVienUI extends JPanel{
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbTB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -474,19 +527,19 @@ public class ThanhVienUI extends JPanel{
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtDatcho;
     private javax.swing.JTextField txtEmailTV;
     private javax.swing.JTextField txtFindTV;
     private javax.swing.JTextField txtKhoaTV;
+    private javax.swing.JTextField txtMaTT;
     private javax.swing.JTextField txtMaTV;
+    private javax.swing.JTextField txtMuon;
     private javax.swing.JTextField txtNganhTV;
     private javax.swing.JTextField txtPassTV;
     private javax.swing.JTextField txtSdtTV;
+    private javax.swing.JTextField txtTenTB;
     private javax.swing.JTextField txtTenTV;
+    private javax.swing.JTextField txtTra;
+    private javax.swing.JTextField txtVao;
     // End of variables declaration//GEN-END:variables
 }

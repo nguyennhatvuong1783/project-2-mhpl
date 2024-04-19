@@ -42,5 +42,5 @@ public class ThanhVienDAL {
     public void deleteThanhVien(ThanhVien tv) {
         session.delete(tv);
     }
-
+     
 }

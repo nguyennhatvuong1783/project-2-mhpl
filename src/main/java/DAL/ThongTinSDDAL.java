@@ -6,6 +6,8 @@ package DAL;
 
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -28,8 +30,8 @@ public class ThongTinSDDAL {
         return thongTinSD;
     }
     
-    public ThongTinSD getThongTinSD(int maTT) {
-        ThongTinSD ttsd = session.get(ThongTinSD.class, maTT);
+    public ThongTinSD getThongTinSD(int MaTT) {
+        ThongTinSD ttsd = session.get(ThongTinSD.class, MaTT);
         return ttsd;
     }
     
@@ -44,5 +46,27 @@ public class ThongTinSDDAL {
     public void deleteThongTinSD(ThongTinSD ttsd) {
         session.delete(ttsd);
     }
-
+public TTSD getTTSDByMaTV(int maTV) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        TTSD thongTinSD = null;
+        
+        try {
+            transaction = session.beginTransaction();
+            String hql = "FROM TTSD WHERE maTV = :maTV";
+            Query query = session.createQuery(hql);
+            query.setParameter("maTV", maTV);
+            thongTinSD = (TTSD) query.uniqueResult();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        
+        return thongTinSD;
+    }
 }
