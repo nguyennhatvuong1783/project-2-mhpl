@@ -4,10 +4,44 @@
  */
 package BLL;
 
-/**
- *
- * @author Nguyen Nhat Vuong
- */
+import DAL.ThanhVien;
+import DAL.ThanhVienDAL;
+import java.util.List;
 public class ThanhVienBLL {
+      private ThanhVienDAL thanhvienDAL;
     
+    public ThanhVienBLL() {
+        thanhvienDAL = new ThanhVienDAL();
+    }
+    
+    public List loadThanhVien() {
+        List list;
+        list = thanhvienDAL.loadThanhVien();
+        
+        return list;
+    }
+    public Object[][] convertList(List<ThanhVien> list) {
+        int rows = list.size();
+        int cols = 7;
+        Object[][] obj = new Object[rows][cols];
+        for(int i = 0; i < rows; i++) {
+            obj[i][0] = list.get(i).getMaTV();
+            obj[i][1] = list.get(i).getHoTen();
+            obj[i][2] = list.get(i).getPassword();
+            obj[i][3] = list.get(i).getEmail();
+            obj[i][4] = list.get(i).getSdt();
+            obj[i][5] = list.get(i).getKhoa();
+            obj[i][6] = list.get(i).getNganh();
+        }
+        return obj;
+    }
+    
+    public void createUser(ThanhVien tv) {
+        thanhvienDAL.addThanhVien(tv);
+    }
+    
+    public ThanhVien getUser(int matv) {
+        ThanhVien tv = thanhvienDAL.getThanhVien(matv);
+        return tv;
+    }
 }

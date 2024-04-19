@@ -28,6 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         <mapping class="DAL.XuLy"/>
         <mapping class="DAL.ThongTinSD"/>
         <mapping class="DAL.ThietBi"/>
+         <mapping class="DAL.TTSD"/>
     </session-factory>
 </hibernate-configuration>
 
