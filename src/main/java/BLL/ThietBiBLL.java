@@ -47,5 +47,21 @@ public class ThietBiBLL {
         ThietBi tb = thietBiDAL.getThietBi(maTB);
         return tb;
     }
+    
+    public void updateCategory(ThietBi tb){
+        thietBiDAL.updateThietBi(tb);
+    }
+    
+    public void deleteCategory(ThietBi tb){
+        thietBiDAL.deleteThietBi(tb);
+    }
+    
+    public int getLastId(){
+       return thietBiDAL.getlastMaTB();
+    }
+    
+    public List searchCategory(String tenTB){
+        return thietBiDAL.searchThietBi(tenTB);
+    }
 
 }

@@ -5,6 +5,8 @@
 package UI;
 
 import BLL.ThietBiBLL;
+import DAL.ThietBi;
+import UI.FormAddThietBi;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,6 +18,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,8 +42,6 @@ public class ThietBiUI extends JPanel{
     private JPanel pnlControl, pnlSearch, pnlContent, pnlButton;
     private JTable tb;
     private JScrollPane sp;
-    private JLabel lblCourse, lblInstructor;
-    private JComboBox<String> cbCourse, cbInstructor;
     private JTextField txtSearch;
     private JButton btnAdd, btnUpdate, btnDelete, btnReset, btnSearch;
     
@@ -55,10 +56,6 @@ public class ThietBiUI extends JPanel{
         txtSearch = new JTextField();
         btnSearch = new JButton();
         pnlContent = new JPanel();
-        lblCourse = new JLabel();
-        cbCourse = new JComboBox<>();
-        lblInstructor = new JLabel();
-        cbInstructor = new JComboBox<>();
         pnlButton = new JPanel();
         btnAdd = new JButton();
         btnUpdate = new JButton();
@@ -81,6 +78,7 @@ public class ThietBiUI extends JPanel{
         btnSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                eventSearch();
             }
         });
         pnlSearch.add(btnSearch);
@@ -89,20 +87,7 @@ public class ThietBiUI extends JPanel{
 
         pnlContent.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        lblCourse.setText("Course");
-        pnlContent.add(lblCourse);
-
-//        cbCourse.setModel(new DefaultComboBoxModel<>(getCourseList(courseList)));
-        cbCourse.setPreferredSize(new Dimension(200, 30));
-        pnlContent.add(cbCourse);
-
-        lblInstructor.setText("Instructor");
-        pnlContent.add(lblInstructor);
-
-//        cbInstructor.setModel(new DefaultComboBoxModel<>(getInstructorList(insList)));
-        cbInstructor.setPreferredSize(new Dimension(200, 30));
-        pnlContent.add(cbInstructor);
-
+      
         pnlControl.add(pnlContent);
 
         pnlButton.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
@@ -112,7 +97,7 @@ public class ThietBiUI extends JPanel{
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+               FormAddThietBi fat = new FormAddThietBi();
             }
         });
         pnlButton.add(btnAdd);
@@ -122,7 +107,7 @@ public class ThietBiUI extends JPanel{
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                eventUpdate();
             }
         });
         pnlButton.add(btnUpdate);
@@ -132,7 +117,7 @@ public class ThietBiUI extends JPanel{
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+               eventDelete();
             }
         });
         pnlButton.add(btnDelete);
@@ -142,6 +127,9 @@ public class ThietBiUI extends JPanel{
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dtm.setRowCount(0);
+                dtm = loadCategoryTable();
+                tb.setModel(dtm);
             }
         });
         pnlButton.add(btnReset);
@@ -161,7 +149,6 @@ public class ThietBiUI extends JPanel{
         rowSorter = new TableRowSorter<>(tb.getModel());
         tb.setRowSorter(rowSorter);
         sp.setViewportView(tb);
-
         add(sp, BorderLayout.CENTER);
     }
 
@@ -173,5 +160,55 @@ public class ThietBiUI extends JPanel{
         DefaultTableModel model = new DefaultTableModel(datamodel, title);
         return model;
     }
+    
+    private void eventDelete(){
+         int index = tb.getSelectedRow();
+         if(index == -1){
+             JOptionPane.showMessageDialog(this, "Vui lòng chọn thiết bị cần xóa");
+         }else{
+             if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa thiết bị", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
+                 int maTb = Integer.parseInt(String.valueOf(tb.getValueAt(index, 0)));
+                 ThietBi t = thietBiBLL.getCategory(maTb);
+                 thietBiBLL.deleteCategory(t);
+                 JOptionPane.showMessageDialog(this, "Xóa thành công");
+                 dtm.setRowCount(0);
+                 dtm = loadCategoryTable();
+                 tb.setModel(dtm);
+             }
+         }      
+    }
+    
+    private void eventUpdate(){
+         int index = tb.getSelectedRow();
+         if(index == -1){
+             JOptionPane.showMessageDialog(this, "Vui lòng chọn thiết bị cần sửa");
+         }else{
+             if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa thiết bị", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION){
+                int maTb = Integer.parseInt(String.valueOf(tb.getValueAt(index, 0)));
+                String tenTb = String.valueOf( tb.getValueAt(index, 1));
+                String motaTb = String.valueOf( tb.getValueAt(index, 2));
+                FormUpdateThietBi t = new FormUpdateThietBi(maTb,tenTb, motaTb);
+             }
+         }      
+    }
+    
+    private void eventSearch(){
+        String input = txtSearch.getText();
+        dtm.setRowCount(0);
+        dtm = loadCategorySearch(input);
+        tb.setModel(dtm);
+    }
+    
+      public DefaultTableModel loadCategorySearch(String input) {
+        List listThietBi = thietBiBLL.searchCategory(input);
+        Object[][] datamodel;
+        datamodel = thietBiBLL.convertList(listThietBi);
+        String[] title = {"Mã thiết bị", "Tên thiết bị", "Mô tả"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title);
+        return model;
+    }
+    
+
+  
 
 }
