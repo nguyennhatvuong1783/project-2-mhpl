@@ -724,7 +724,7 @@ if (!Nganh.matches("[\\p{L} ]+")) {
            JOptionPane.showMessageDialog(this, "Xóa thành viên thành công.");
            reset();
        } else {
-           JOptionPane.showMessageDialog(this, "Xóa thành viên thất bại.");
+           JOptionPane.showMessageDialog(this, "Xóa thành viên thất bại vì có là khóa ngoại.");
            return;
        }
        }
