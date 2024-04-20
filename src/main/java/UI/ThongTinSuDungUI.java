@@ -4,6 +4,7 @@
  */
 package UI;
 
+import BLL.ThietBiBLL;
 import BLL.ThongTinSDBLL;
 import java.util.List;
 import javax.swing.RowFilter;
@@ -17,9 +18,11 @@ import javax.swing.table.TableRowSorter;
  */
 public class ThongTinSuDungUI extends javax.swing.JPanel {
     private ThongTinSDBLL tt;
+    private ThietBiBLL tb;
     DefaultTableModel dtm;
     public ThongTinSuDungUI() {
         tt=new ThongTinSDBLL();
+        tb=new ThietBiBLL();
         initComponents();
         onload();
     }
@@ -41,6 +44,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         dtm=loadTable();	
         jTable.setAutoCreateRowSorter(true);
         jTable.setModel(dtm);
+        
         for (int i = 0; i < jTable.getColumnCount(); i++) {
         TableColumn column = jTable.getColumnModel().getColumn(i);
         column.setCellEditor(null);
@@ -181,7 +185,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                             .addComponent(txtMuon)
                             .addComponent(txtTra)
                             .addComponent(txtDatcho)
-                            .addComponent(txtVao, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtMaTT, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
@@ -197,8 +200,11 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                                         .addComponent(jLabel14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(cbTB, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(3, 3, 3))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtVao, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)

@@ -8,6 +8,7 @@ import BLL.ThanhVienBLL;
 import BLL.ThietBiBLL;
 import BLL.ThongTinSDBLL;
 import DAL.TTSD;
+import DAL.ThanhVien;
 import DAL.ThietBi;
 import DAL.ThongTinSD;
 import java.util.List;
@@ -81,7 +82,7 @@ public class ThanhVienUI extends JPanel{
         jLabel1 = new javax.swing.JLabel();
         txtFindTV = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblchitiet = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtMaTV = new javax.swing.JTextField();
@@ -153,8 +154,8 @@ public class ThanhVienUI extends JPanel{
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Chi tiết thành viên");
+        lblchitiet.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblchitiet.setText("Chi tiết thành viên");
 
         jLabel4.setText("Mã :");
 
@@ -192,6 +193,11 @@ public class ThanhVienUI extends JPanel{
         jLabel11.setText("Chức năng");
 
         jButton2.setText("Thêm");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Sửa");
 
@@ -226,7 +232,7 @@ public class ThanhVienUI extends JPanel{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
+                    .addComponent(lblchitiet)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -289,7 +295,7 @@ public class ThanhVienUI extends JPanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lblchitiet)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
@@ -375,6 +381,37 @@ public class ThanhVienUI extends JPanel{
         tr.setRowFilter(RowFilter.regexFilter(query));        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+       if (jButton2.getText().equals("Thêm")){
+           jButton2.setText("Lưu");
+           lblchitiet.setText("Thêm thành viên");
+        
+        txtTenTV.setText("");
+        txtPassTV.setText("");
+        txtEmailTV.setText("");
+        txtSdtTV.setText("");
+        txtKhoaTV.setText("");
+        txtNganhTV.setText("");
+        txtMaTV.setEditable(false);
+        txtTenTV.setEditable(true);
+        txtPassTV.setEditable(true);
+        txtEmailTV.setEditable(true);
+        txtKhoaTV.setEditable(true);
+        txtNganhTV.setEditable(true);
+        txtSdtTV.setEditable(true);
+        txtMaTV.setEnabled(false);
+        txtTenTV.setEnabled(true);
+        txtPassTV.setEnabled(true);
+        txtEmailTV.setEnabled(true);
+        txtKhoaTV.setEnabled(true);
+        txtNganhTV.setEnabled(true);
+        txtSdtTV.setEnabled(true);
+       }else{
+       String MaTV;
+       ThanhVien tv=new ThanhVien();       
+       }
+    }//GEN-LAST:event_jButton2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -385,7 +422,6 @@ public class ThanhVienUI extends JPanel{
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -399,6 +435,7 @@ public class ThanhVienUI extends JPanel{
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblchitiet;
     private javax.swing.JTextField txtEmailTV;
     private javax.swing.JTextField txtFindTV;
     private javax.swing.JTextField txtKhoaTV;

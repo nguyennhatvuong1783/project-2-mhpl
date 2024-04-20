@@ -32,7 +32,10 @@ public class ThanhVienDAL {
     }
     
     public void addThanhVien(ThanhVien tv) {
-        session.save(tv);   
+        session.beginTransaction();
+        session.save(tv); 
+        session.getTransaction().commit();
+        session.close();   
     }
     
     public void updateThanhVien(ThanhVien tv) {
