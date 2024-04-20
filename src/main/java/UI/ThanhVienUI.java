@@ -425,7 +425,7 @@ public class ThanhVienUI extends JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -458,8 +458,8 @@ public class ThanhVienUI extends JPanel {
         onload();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5MouseClicked
-    public void reset(){
-         jButton2.setText("Thêm");
+    public void reset() {
+        jButton2.setText("Thêm");
         jButton3.setText("Sửa");
         jButton3.setEnabled(true);
         txtMaTV.setText("");
@@ -518,39 +518,40 @@ public class ThanhVienUI extends JPanel {
             String text = txtMaTV.getText();
             MaTV = Integer.parseInt(text);
             String Hoten = txtTenTV.getText();
-             if (!Hoten.matches("[\\p{L} ]+")) {
-    JOptionPane.showMessageDialog(this, "Tên thành viên chỉ được chứa các ký tự chữ cái.");
-    return;
-}
+            if (!Hoten.matches("[\\p{L} ]+")) {
+                JOptionPane.showMessageDialog(this, "Tên thành viên chỉ được chứa các ký tự chữ cái.");
+                return;
+            }
             String Pass = txtPassTV.getText();
             String Email = txtEmailTV.getText();
             if (!isValidEmail(Email)) {
                 JOptionPane.showMessageDialog(this, "Email không hợp lệ.");
                 return;
             }
-            if (isExistEmailEdit(Email,MaTV)) {
+            if (isExistEmailEdit(Email, MaTV)) {
                 JOptionPane.showMessageDialog(this, "Email đã tồn tại.");
                 return;
             }
-        
+
             String Khoa = txtKhoaTV.getText();
             String Nganh = txtNganhTV.getText();
             if (!Khoa.matches("[\\p{L} ]+")) {
-    JOptionPane.showMessageDialog(this, "Khoa chỉ được chứa các ký tự chữ cái.");
-    return;
-}
+                JOptionPane.showMessageDialog(this, "Khoa chỉ được chứa các ký tự chữ cái.");
+                return;
+            }
 
-if (!Nganh.matches("[\\p{L} ]+")) {
-    JOptionPane.showMessageDialog(this, "Ngành chỉ được chứa các ký tự chữ cái.");
-    return;}
-                        String sdt;
+            if (!Nganh.matches("[\\p{L} ]+")) {
+                JOptionPane.showMessageDialog(this, "Ngành chỉ được chứa các ký tự chữ cái.");
+                return;
+            }
+            String sdt;
             String sdttext = txtSdtTV.getText();
             if (sdttext != null && !sdttext.isEmpty()) {
                 if (sdttext.matches("(09|03|08|01)\\d{8}")) {
                     if (sdttext.matches("\\d{10}")) {
                         sdt = sdttext;
 
-                        if (isExistPhoneNumberEdit(sdt,MaTV)) {
+                        if (isExistPhoneNumberEdit(sdt, MaTV)) {
                             JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại.");
                             return;
                         }
@@ -570,16 +571,14 @@ if (!Nganh.matches("[\\p{L} ]+")) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
                 return;
             } else {
-                
-                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email, String.valueOf(sdt));
-                        thanhVienBLL.updateThanhVien(MaTV, tv);
-                        jButton3.setText("Sửa");
-                        jButton2.setEnabled(true);
-                        jButton4.setEnabled(true);
-                        JOptionPane.showMessageDialog(this, "Sửa thành công!");
-                        reset();
-                   
-                        
+
+                ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email, String.valueOf(sdt));
+                thanhVienBLL.updateThanhVien(MaTV, tv);
+                jButton3.setText("Sửa");
+                jButton2.setEnabled(true);
+                jButton4.setEnabled(true);
+                JOptionPane.showMessageDialog(this, "Sửa thành công!");
+                reset();
 
             }
         }
@@ -590,7 +589,7 @@ if (!Nganh.matches("[\\p{L} ]+")) {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       if (jButton2.getText().equals("Thêm")) {
+        if (jButton2.getText().equals("Thêm")) {
             jButton2.setText("Lưu");
             jButton3.setEnabled(false);
             jButton4.setEnabled(false);
@@ -641,9 +640,9 @@ if (!Nganh.matches("[\\p{L} ]+")) {
             }
             String Hoten = txtTenTV.getText();
             if (!Hoten.matches("[\\p{L} ]+")) {
-    JOptionPane.showMessageDialog(this, "Tên thành viên chỉ được chứa các ký tự chữ cái.");
-    return;
-}
+                JOptionPane.showMessageDialog(this, "Tên thành viên chỉ được chứa các ký tự chữ cái.");
+                return;
+            }
             String Pass = txtPassTV.getText();
             String Email = txtEmailTV.getText();
             if (!isValidEmail(Email)) {
@@ -657,21 +656,21 @@ if (!Nganh.matches("[\\p{L} ]+")) {
             String Khoa = txtKhoaTV.getText();
             String Nganh = txtNganhTV.getText();
             if (!Khoa.matches("[\\p{L} ]+")) {
-    JOptionPane.showMessageDialog(this, "Khoa chỉ được chứa các ký tự chữ cái.");
-    return;
-}
+                JOptionPane.showMessageDialog(this, "Khoa chỉ được chứa các ký tự chữ cái.");
+                return;
+            }
 
-if (!Nganh.matches("[\\p{L} ]+")) {
-    JOptionPane.showMessageDialog(this, "Ngành chỉ được chứa các ký tự chữ cái.");
-    return;
-}
+            if (!Nganh.matches("[\\p{L} ]+")) {
+                JOptionPane.showMessageDialog(this, "Ngành chỉ được chứa các ký tự chữ cái.");
+                return;
+            }
 
             String sdt;
             String sdttext = txtSdtTV.getText();
             if (sdttext != null && !sdttext.isEmpty()) {
                 if (sdttext.matches("(09|03|08|01)\\d{8}")) {
                     if (sdttext.matches("\\d{10}")) {
-                        sdt =sdttext;
+                        sdt = sdttext;
 
                         if (isExistPhoneNumber(sdt)) {
                             JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại.");
@@ -695,7 +694,7 @@ if (!Nganh.matches("[\\p{L} ]+")) {
             } else {
                 if (isValidMaTV(String.valueOf(MaTV))) {
                     if (!isExistMaTV(MaTV)) {
-                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email,sdt);
+                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email, sdt);
                         thanhVienBLL.createUser(tv);
                         jButton2.setText("Thêm");
                         jButton3.setEnabled(true);
@@ -715,19 +714,23 @@ if (!Nganh.matches("[\\p{L} ]+")) {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       if (txtMaTV.getText().isEmpty()) {
+        if (txtMaTV.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chọn thành viên cần xóa.");
             return;
-        } else{
-       if (thanhVienBLL.deleteThanhVien(Integer.parseInt(txtMaTV.getText()))) {
-           
-           JOptionPane.showMessageDialog(this, "Xóa thành viên thành công.");
-           reset();
-       } else {
-           JOptionPane.showMessageDialog(this, "Xóa thành viên thất bại vì có là khóa ngoại.");
-           return;
-       }
-       }
+        } else {
+             int confirmation = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa thành viên này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+    if (confirmation == JOptionPane.YES_OPTION) {
+        if (thanhVienBLL.deleteThanhVien(Integer.parseInt(txtMaTV.getText()))) {
+            JOptionPane.showMessageDialog(this, "Xóa thành viên thành công.");
+            reset();
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thành viên thất bại vì có liên kết với khóa ngoại.");
+            return;
+        }
+    } else {
+        return;
+    }
+}
     }//GEN-LAST:event_jButton4ActionPerformed
     private boolean isValidMaTV(String maTV) {
         // Kiểm tra xem maTV có 10 ký tự không
@@ -763,15 +766,17 @@ if (!Nganh.matches("[\\p{L} ]+")) {
         }
         return false;
     }
+
     private boolean isExistEmailEdit(String email, int maTV) {
-    List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
-    for (ThanhVien thanhVien : listThanhVien) {
-        if (thanhVien.getMaTV() != maTV && thanhVien.getEmail().equals(email)) {
-            return true;
+        List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+        for (ThanhVien thanhVien : listThanhVien) {
+            if (thanhVien.getMaTV() != maTV && thanhVien.getEmail().equals(email)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
+
     private boolean isExistPhoneNumber(String phoneNumber) {
         List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
         for (ThanhVien thanhVien : listThanhVien) {
@@ -781,15 +786,17 @@ if (!Nganh.matches("[\\p{L} ]+")) {
         }
         return false;
     }
-private boolean isExistPhoneNumberEdit(String phoneNumber, int maTV) {
-    List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
-    for (ThanhVien thanhVien : listThanhVien) {
-        if (thanhVien.getMaTV() != maTV && thanhVien.getSdt().equals(phoneNumber)) {
-            return true;
+
+    private boolean isExistPhoneNumberEdit(String phoneNumber, int maTV) {
+        List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+        for (ThanhVien thanhVien : listThanhVien) {
+            if (thanhVien.getMaTV() != maTV && thanhVien.getSdt().equals(phoneNumber)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
+
     private boolean isValidEmail(String email) {
         // Biểu thức chính quy để kiểm tra định dạng email
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
