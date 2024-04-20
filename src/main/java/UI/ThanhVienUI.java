@@ -385,21 +385,21 @@ public class ThanhVienUI extends JPanel{
        if (jButton2.getText().equals("Thêm")){
            jButton2.setText("Lưu");
            lblchitiet.setText("Thêm thành viên");
-        
+        txtMaTV.setText("");   
         txtTenTV.setText("");
         txtPassTV.setText("");
         txtEmailTV.setText("");
         txtSdtTV.setText("");
         txtKhoaTV.setText("");
         txtNganhTV.setText("");
-        txtMaTV.setEditable(false);
+        txtMaTV.setEditable(true);
         txtTenTV.setEditable(true);
         txtPassTV.setEditable(true);
         txtEmailTV.setEditable(true);
         txtKhoaTV.setEditable(true);
         txtNganhTV.setEditable(true);
         txtSdtTV.setEditable(true);
-        txtMaTV.setEnabled(false);
+        txtMaTV.setEnabled(true);
         txtTenTV.setEnabled(true);
         txtPassTV.setEnabled(true);
         txtEmailTV.setEnabled(true);
@@ -407,8 +407,20 @@ public class ThanhVienUI extends JPanel{
         txtNganhTV.setEnabled(true);
         txtSdtTV.setEnabled(true);
        }else{
-       String MaTV;
-       ThanhVien tv=new ThanhVien();       
+       int MaTV=Integer.parseInt(txtMaTV.getText());
+       String Hoten=txtTenTV.getText();
+       String Pass=txtPassTV.getText();
+       String Email=txtEmailTV.getText();
+       String Khoa=txtKhoaTV.getText();
+       String Nganh=txtNganhTV.getText();
+       int sdt=Integer.parseInt(txtSdtTV.getText());
+       if (String.valueOf(MaTV)==""||Hoten==""||Pass==""||Email==""||Khoa==""||Nganh==""||String.valueOf(sdt)==""){
+       
+       }
+       ThanhVien tv=new ThanhVien(MaTV,Pass,Hoten,Khoa,Nganh,Email,sdt);
+       thanhVienBLL.createUser(tv);
+       jButton2.setText("Thêm");
+       
        }
     }//GEN-LAST:event_jButton2MouseClicked
 
