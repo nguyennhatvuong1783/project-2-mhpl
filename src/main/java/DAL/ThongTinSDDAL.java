@@ -5,6 +5,7 @@
 package DAL;
 
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -29,7 +30,21 @@ public class ThongTinSDDAL {
         session.getTransaction().commit();
         return thongTinSD;
     }
-    
+     public List<TTSD> loadTTSD() {
+    List<TTSD> thongTinSD;
+    Transaction transaction = null;
+    try {
+        transaction = session.beginTransaction();
+        thongTinSD = session.createQuery("FROM TTSD", TTSD.class).list();
+        transaction.commit();
+    } catch (HibernateException e) {
+        if (transaction != null) {
+            transaction.rollback();
+        }
+        throw e;
+    }
+    return thongTinSD;
+}
     public ThongTinSD getThongTinSD(int MaTT) {
         ThongTinSD ttsd = session.get(ThongTinSD.class, MaTT);
         return ttsd;

@@ -29,8 +29,8 @@ public class MainUI {
     
     public static JFrame f;
     private JPanel pnlLeftMenu, pnlContent, pnlMenu;
-    public JButton btnThanhVien, btnThietBi, btnXuLy, btnThongKe, btnLogOut;
-    private int flag[] = new int[4];
+    public JButton btnThanhVien, btnThietBi, btnXuLy, btnThongKe, btnLogOut,btnThongTin;
+    private int flag[] = new int[5];
     private CardLayout cardLayout = new CardLayout();
 
     public MainUI() {
@@ -88,7 +88,28 @@ public class MainUI {
                 switchView(0);
             }
         });
-
+        
+        btnThongTin = new JButton("Thông tin sử dụng");
+        btnThongTin.setForeground(new Color(255,255,255));
+        btnThongTin.setFont(new Font(null, Font.BOLD, 15));
+        btnThongTin.setBackground(new Color(62,78,94));
+        btnThongTin.setBorder(new EmptyBorder(0,0,0,0));
+        btnThongTin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnThongTin.setOpaque(true);
+        btnThongTin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (flag[2] == 0) {
+                    JPanel pnl = new ThongTinSuDungUI();
+                    pnlContent.add(pnl, "2");
+                    cardLayout.show(pnlContent, "2");
+                } else {
+                    cardLayout.show(pnlContent, "2");
+                }
+                switchView(2);
+            }
+        });
+        
         btnThietBi = new JButton("Thiết bị");
         btnThietBi.setForeground(new Color(255,255,255));
         btnThietBi.setFont(new Font(null, Font.BOLD, 15));
@@ -120,14 +141,14 @@ public class MainUI {
         btnXuLy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (flag[2] == 0) {
+                if (flag[3] == 0) {
                     JPanel pnl = new XuLyUI();
-                    pnlContent.add(pnl, "2");
-                    cardLayout.show(pnlContent, "2");
+                    pnlContent.add(pnl, "3");
+                    cardLayout.show(pnlContent, "3");
                 } else {
-                    cardLayout.show(pnlContent, "2");
+                    cardLayout.show(pnlContent, "3");
                 }
-                switchView(2);
+                switchView(3);
             }
         });
 
@@ -141,14 +162,14 @@ public class MainUI {
         btnThongKe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (flag[3] == 0) {
+                if (flag[4] == 0) {
                     JPanel pnl = new ThongKeUI();
-                    pnlContent.add(pnl, "3");
-                    cardLayout.show(pnlContent, "3");
+                    pnlContent.add(pnl, "4");
+                    cardLayout.show(pnlContent, "4");
                 } else {
-                    cardLayout.show(pnlContent, "3");
+                    cardLayout.show(pnlContent, "4");
                 }
-                switchView(3);
+                switchView(4);
             }
         });
         
@@ -168,9 +189,11 @@ public class MainUI {
 
         pnlMenu.add(btnThanhVien);
         pnlMenu.add(btnThietBi);
+        pnlMenu.add(btnThongTin);
         pnlMenu.add(btnXuLy);
         pnlMenu.add(btnThongKe);
         pnlMenu.add(btnLogOut);
+
 
         pnlLeftMenu.add(lblLogo, BorderLayout.NORTH);
         pnlLeftMenu.add(pnlMenu, BorderLayout.CENTER);
@@ -179,8 +202,8 @@ public class MainUI {
     }
     
     public void switchView(int i) {
-        JButton[] btnList = {this.btnThanhVien, this.btnThietBi, this.btnXuLy, this.btnThongKe};
-        for(int j = 0; j < 4; j++) {
+        JButton[] btnList = {this.btnThanhVien, this.btnThietBi,this.btnThongTin, this.btnXuLy, this.btnThongKe};
+        for(int j = 0; j < 5; j++) {
             if(flag[j] == 2) {
                 flag[j] = 1;
                 btnList[j].setBackground(new Color(62, 78, 94));
