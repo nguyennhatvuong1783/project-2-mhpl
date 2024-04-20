@@ -12,64 +12,70 @@ import DAL.ThanhVien;
 import DAL.ThietBi;
 import DAL.ThongTinSD;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Nguyen Nhat Vuong
  */
-public class ThanhVienUI extends JPanel{
+public class ThanhVienUI extends JPanel {
+
     private ThanhVienBLL thanhVienBLL;
     private ThongTinSDBLL thongTinBLL;
     private ThietBiBLL thietbiBLL;
     DefaultTableModel dtm;
+
     public ThanhVienUI() {
         thanhVienBLL = new ThanhVienBLL();
         thongTinBLL = new ThongTinSDBLL();
         initComponents();
         onload();
     }
-    public DefaultTableModel loadTable(){
+
+    public DefaultTableModel loadTable() {
         List listThanhVien = thanhVienBLL.loadThanhVien();
         Object[][] datamodel;
         datamodel = thanhVienBLL.convertList(listThanhVien);
-        String[] title = {"Mã thành viên", "Tên thành viên", "Password","Email","Số điện thoại","Khoa","Ngành"};
-        DefaultTableModel model = new DefaultTableModel(datamodel, title){
-            public boolean isCellEditable(int row, int column)
-                {
-                  return false;
-                }
-       };	
+        String[] title = {"Mã thành viên", "Tên thành viên", "Password", "Email", "Số điện thoại", "Khoa", "Ngành"};
+        DefaultTableModel model = new DefaultTableModel(datamodel, title) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         return model;
     }
-    public void onload(){
-        dtm=loadTable();	
+
+    public void onload() {
+        dtm = loadTable();
         jTable.setAutoCreateRowSorter(true);
         jTable.setModel(dtm);
-        
+
         for (int i = 0; i < jTable.getColumnCount(); i++) {
-        TableColumn column = jTable.getColumnModel().getColumn(i);
-        column.setCellEditor(null);
-        txtMaTV.setEditable(false);
-        txtTenTV.setEditable(false);
-        txtPassTV.setEditable(false);
-        txtEmailTV.setEditable(false);
-        txtKhoaTV.setEditable(false);
-        txtNganhTV.setEditable(false);
-        txtSdtTV.setEditable(false);
-        txtMaTV.setEnabled(false);
-        txtTenTV.setEnabled(false);
-        txtPassTV.setEnabled(false);
-        txtEmailTV.setEnabled(false);
-        txtKhoaTV.setEnabled(false);
-        txtNganhTV.setEnabled(false);
-        txtSdtTV.setEnabled(false);
+            TableColumn column = jTable.getColumnModel().getColumn(i);
+            column.setCellEditor(null);
+            txtMaTV.setEditable(false);
+            txtTenTV.setEditable(false);
+            txtPassTV.setEditable(false);
+            txtEmailTV.setEditable(false);
+            txtKhoaTV.setEditable(false);
+            txtNganhTV.setEditable(false);
+            txtSdtTV.setEditable(false);
+            txtMaTV.setEnabled(false);
+            txtTenTV.setEnabled(false);
+            txtPassTV.setEnabled(false);
+            txtEmailTV.setEnabled(false);
+            txtKhoaTV.setEnabled(false);
+            txtNganhTV.setEnabled(false);
+            txtSdtTV.setEnabled(false);
+        }
     }
-    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,6 +110,7 @@ public class ThanhVienUI extends JPanel{
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -198,10 +205,30 @@ public class ThanhVienUI extends JPanel{
                 jButton2MouseClicked(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sửa");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,6 +250,18 @@ public class ThanhVienUI extends JPanel{
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Tìm kiếm");
+
+        jButton5.setText("Reset");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -264,7 +303,15 @@ public class ThanhVienUI extends JPanel{
                             .addComponent(txtPassTV)
                             .addComponent(txtEmailTV))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFindTV, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(63, 63, 63))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11)
@@ -272,16 +319,10 @@ public class ThanhVienUI extends JPanel{
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtFindTV, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(57, 57, 57))
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(317, 317, 317)
                 .addComponent(jLabel1)
@@ -336,7 +377,8 @@ public class ThanhVienUI extends JPanel{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jButton3)
-                            .addComponent(jButton4))))
+                            .addComponent(jButton4)
+                            .addComponent(jButton5))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
         );
@@ -359,8 +401,8 @@ public class ThanhVienUI extends JPanel{
     }//GEN-LAST:event_txtKhoaTVActionPerformed
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-       int i = jTable.getSelectedRow();
-        if(i>=0){
+        int i = jTable.getSelectedRow();
+        if (i >= 0) {
             txtMaTV.setText(jTable.getModel().getValueAt(i, 0).toString());
             txtTenTV.setText(jTable.getModel().getValueAt(i, 1).toString());
             txtPassTV.setText(jTable.getModel().getValueAt(i, 2).toString());
@@ -369,67 +411,398 @@ public class ThanhVienUI extends JPanel{
             txtKhoaTV.setText(jTable.getModel().getValueAt(i, 5).toString());
             txtNganhTV.setText(jTable.getModel().getValueAt(i, 6).toString());
             TTSD tt = thongTinBLL.getTTSDByMaTV(Integer.parseInt(txtMaTV.getText()));
-            if (tt ==null){
-            
-        }}
+            if (tt == null) {
+
+            }
+        }
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
- String query = txtFindTV.getText();
+        String query = txtFindTV.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(dtm);
         jTable.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-       if (jButton2.getText().equals("Thêm")){
-           jButton2.setText("Lưu");
-           lblchitiet.setText("Thêm thành viên");
-        txtMaTV.setText("");   
+        
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        jButton2.setText("Thêm");
+        jButton3.setText("Sửa");
+        jButton3.setEnabled(true);
+        jButton4.setEnabled(true);
+        jButton2.setEnabled(true);
+        txtMaTV.setText("");
         txtTenTV.setText("");
         txtPassTV.setText("");
         txtEmailTV.setText("");
         txtSdtTV.setText("");
         txtKhoaTV.setText("");
         txtNganhTV.setText("");
-        txtMaTV.setEditable(true);
-        txtTenTV.setEditable(true);
-        txtPassTV.setEditable(true);
-        txtEmailTV.setEditable(true);
-        txtKhoaTV.setEditable(true);
-        txtNganhTV.setEditable(true);
-        txtSdtTV.setEditable(true);
-        txtMaTV.setEnabled(true);
-        txtTenTV.setEnabled(true);
-        txtPassTV.setEnabled(true);
-        txtEmailTV.setEnabled(true);
-        txtKhoaTV.setEnabled(true);
-        txtNganhTV.setEnabled(true);
-        txtSdtTV.setEnabled(true);
-       }else{
-       int MaTV=Integer.parseInt(txtMaTV.getText());
-       String Hoten=txtTenTV.getText();
-       String Pass=txtPassTV.getText();
-       String Email=txtEmailTV.getText();
-       String Khoa=txtKhoaTV.getText();
-       String Nganh=txtNganhTV.getText();
-       int sdt=Integer.parseInt(txtSdtTV.getText());
-       if (String.valueOf(MaTV)==""||Hoten==""||Pass==""||Email==""||Khoa==""||Nganh==""||String.valueOf(sdt)==""){
-       
-       }
-       ThanhVien tv=new ThanhVien(MaTV,Pass,Hoten,Khoa,Nganh,Email,sdt);
-       thanhVienBLL.createUser(tv);
-       jButton2.setText("Thêm");
-       
-       }
-    }//GEN-LAST:event_jButton2MouseClicked
+        txtMaTV.setEditable(false);
+        txtTenTV.setEditable(false);
+        txtPassTV.setEditable(false);
+        txtEmailTV.setEditable(false);
+        txtKhoaTV.setEditable(false);
+        txtNganhTV.setEditable(false);
+        txtSdtTV.setEditable(false);
+        txtMaTV.setEnabled(false);
+        txtTenTV.setEnabled(false);
+        txtPassTV.setEnabled(false);
+        txtEmailTV.setEnabled(false);
+        txtKhoaTV.setEnabled(false);
+        txtNganhTV.setEnabled(false);
+        txtSdtTV.setEnabled(false);
+        onload();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5MouseClicked
+    public void reset(){
+         jButton2.setText("Thêm");
+        jButton3.setText("Sửa");
+        jButton3.setEnabled(true);
+        txtMaTV.setText("");
+        txtTenTV.setText("");
+        txtPassTV.setText("");
+        txtEmailTV.setText("");
+        txtSdtTV.setText("");
+        txtKhoaTV.setText("");
+        txtNganhTV.setText("");
+        txtMaTV.setEditable(false);
+        txtTenTV.setEditable(false);
+        txtPassTV.setEditable(false);
+        txtEmailTV.setEditable(false);
+        txtKhoaTV.setEditable(false);
+        txtNganhTV.setEditable(false);
+        txtSdtTV.setEditable(false);
+        txtMaTV.setEnabled(false);
+        txtTenTV.setEnabled(false);
+        txtPassTV.setEnabled(false);
+        txtEmailTV.setEnabled(false);
+        txtKhoaTV.setEnabled(false);
+        txtNganhTV.setEnabled(false);
+        txtSdtTV.setEnabled(false);
+        onload();
+    }
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
 
+    }//GEN-LAST:event_jButton3MouseClicked
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (txtMaTV.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chọn thành viên cần sửa.");
+            return;
+        }
+        if (jButton3.getText().equals("Sửa")) {
+            jButton3.setText("Lưu");
+            jButton2.setEnabled(false);
+            jButton4.setEnabled(false);
+            txtMaTV.setEditable(false);
+            txtTenTV.setEditable(true);
+            txtPassTV.setEditable(true);
+            txtEmailTV.setEditable(true);
+            txtKhoaTV.setEditable(true);
+            txtNganhTV.setEditable(true);
+            txtSdtTV.setEditable(true);
+            txtMaTV.setEnabled(false);
+            txtTenTV.setEnabled(true);
+            txtPassTV.setEnabled(true);
+            txtEmailTV.setEnabled(true);
+            txtKhoaTV.setEnabled(true);
+            txtNganhTV.setEnabled(true);
+            txtSdtTV.setEnabled(true);
+        } else {
+
+            int MaTV;
+            String text = txtMaTV.getText();
+            MaTV = Integer.parseInt(text);
+            String Hoten = txtTenTV.getText();
+             if (!Hoten.matches("[\\p{L} ]+")) {
+    JOptionPane.showMessageDialog(this, "Tên thành viên chỉ được chứa các ký tự chữ cái.");
+    return;
+}
+            String Pass = txtPassTV.getText();
+            String Email = txtEmailTV.getText();
+            if (!isValidEmail(Email)) {
+                JOptionPane.showMessageDialog(this, "Email không hợp lệ.");
+                return;
+            }
+            if (isExistEmailEdit(Email,MaTV)) {
+                JOptionPane.showMessageDialog(this, "Email đã tồn tại.");
+                return;
+            }
+        
+            String Khoa = txtKhoaTV.getText();
+            String Nganh = txtNganhTV.getText();
+            if (!Khoa.matches("[\\p{L} ]+")) {
+    JOptionPane.showMessageDialog(this, "Khoa chỉ được chứa các ký tự chữ cái.");
+    return;
+}
+
+if (!Nganh.matches("[\\p{L} ]+")) {
+    JOptionPane.showMessageDialog(this, "Ngành chỉ được chứa các ký tự chữ cái.");
+    return;}
+                        String sdt;
+            String sdttext = txtSdtTV.getText();
+            if (sdttext != null && !sdttext.isEmpty()) {
+                if (sdttext.matches("(09|03|08|01)\\d{8}")) {
+                    if (sdttext.matches("\\d{10}")) {
+                        sdt = sdttext;
+
+                        if (isExistPhoneNumberEdit(sdt,MaTV)) {
+                            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại.");
+                            return;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Số điện thoại phải có đúng 10 số.");
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại.");
+                return;
+            }
+            if (Hoten == "" || Pass == "" || Email == "" || Khoa == "" || Nganh == "") {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+                return;
+            } else {
+                
+                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email, String.valueOf(sdt));
+                        thanhVienBLL.updateThanhVien(MaTV, tv);
+                        jButton3.setText("Sửa");
+                        jButton2.setEnabled(true);
+                        jButton4.setEnabled(true);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công!");
+                        reset();
+                   
+                        
+
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       if (jButton2.getText().equals("Thêm")) {
+            jButton2.setText("Lưu");
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+            lblchitiet.setText("Thêm thành viên");
+            txtMaTV.setText("");
+            txtTenTV.setText("");
+            txtPassTV.setText("");
+            txtEmailTV.setText("");
+            txtSdtTV.setText("");
+            txtKhoaTV.setText("");
+            txtNganhTV.setText("");
+            txtMaTV.setEditable(true);
+            txtTenTV.setEditable(true);
+            txtPassTV.setEditable(true);
+            txtEmailTV.setEditable(true);
+            txtKhoaTV.setEditable(true);
+            txtNganhTV.setEditable(true);
+            txtSdtTV.setEditable(true);
+            txtMaTV.setEnabled(true);
+            txtTenTV.setEnabled(true);
+            txtPassTV.setEnabled(true);
+            txtEmailTV.setEnabled(true);
+            txtKhoaTV.setEnabled(true);
+            txtNganhTV.setEnabled(true);
+            txtSdtTV.setEnabled(true);
+        } else {
+            int MaTV;
+            String text = txtMaTV.getText();
+            if (text.matches(".*[a-zA-Z].*")) {
+                JOptionPane.showMessageDialog(this, "Mã thành viên chỉ được chứa các chữ số.");
+                return;
+            }
+            long textTV = Long.parseLong(text);
+            if (textTV > 2147483647) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập một số nhỏ hơn 2147483647");
+                return;
+            }
+            if (text != null && !text.isEmpty()) {
+                if (text.matches("\\d+")) {
+                    MaTV = Integer.parseInt(text);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã thành viên không hợp lệ.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
+                return;
+            }
+            String Hoten = txtTenTV.getText();
+            if (!Hoten.matches("[\\p{L} ]+")) {
+    JOptionPane.showMessageDialog(this, "Tên thành viên chỉ được chứa các ký tự chữ cái.");
+    return;
+}
+            String Pass = txtPassTV.getText();
+            String Email = txtEmailTV.getText();
+            if (!isValidEmail(Email)) {
+                JOptionPane.showMessageDialog(this, "Email không hợp lệ.");
+                return;
+            }
+            if (isExistEmail(Email)) {
+                JOptionPane.showMessageDialog(this, "Email đã tồn tại.");
+                return;
+            }
+            String Khoa = txtKhoaTV.getText();
+            String Nganh = txtNganhTV.getText();
+            if (!Khoa.matches("[\\p{L} ]+")) {
+    JOptionPane.showMessageDialog(this, "Khoa chỉ được chứa các ký tự chữ cái.");
+    return;
+}
+
+if (!Nganh.matches("[\\p{L} ]+")) {
+    JOptionPane.showMessageDialog(this, "Ngành chỉ được chứa các ký tự chữ cái.");
+    return;
+}
+
+            String sdt;
+            String sdttext = txtSdtTV.getText();
+            if (sdttext != null && !sdttext.isEmpty()) {
+                if (sdttext.matches("(09|03|08|01)\\d{8}")) {
+                    if (sdttext.matches("\\d{10}")) {
+                        sdt =sdttext;
+
+                        if (isExistPhoneNumber(sdt)) {
+                            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại.");
+                            return;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Số điện thoại phải có đúng 10 số.");
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại.");
+                return;
+            }
+            if (Hoten == "" || Pass == "" || Email == "" || Khoa == "" || Nganh == "") {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+                return;
+            } else {
+                if (isValidMaTV(String.valueOf(MaTV))) {
+                    if (!isExistMaTV(MaTV)) {
+                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email,sdt);
+                        thanhVienBLL.createUser(tv);
+                        jButton2.setText("Thêm");
+                        jButton3.setEnabled(true);
+                        jButton4.setEnabled(true);
+                        JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                        reset();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Mã thành viên đã tồn tại.");
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại!");
+                    return;
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       if (txtMaTV.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chọn thành viên cần xóa.");
+            return;
+        } else{
+       if (thanhVienBLL.deleteThanhVien(Integer.parseInt(txtMaTV.getText()))) {
+           
+           JOptionPane.showMessageDialog(this, "Xóa thành viên thành công.");
+           reset();
+       } else {
+           JOptionPane.showMessageDialog(this, "Xóa thành viên thất bại.");
+           return;
+       }
+       }
+    }//GEN-LAST:event_jButton4ActionPerformed
+    private boolean isValidMaTV(String maTV) {
+        // Kiểm tra xem maTV có 10 ký tự không
+        if (maTV.length() != 10) {
+            return false;
+        }
+
+        // Kiểm tra xem maTV chỉ chứa số không
+        if (!maTV.matches("[0-9]+")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isExistMaTV(int maTV) {
+        List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+        for (ThanhVien thanhVien : listThanhVien) {
+            if (thanhVien.getMaTV() == maTV) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isExistEmail(String email) {
+        List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+        for (ThanhVien thanhVien : listThanhVien) {
+            if (thanhVien.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isExistEmailEdit(String email, int maTV) {
+    List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+    for (ThanhVien thanhVien : listThanhVien) {
+        if (thanhVien.getMaTV() != maTV && thanhVien.getEmail().equals(email)) {
+            return true;
+        }
+    }
+    return false;
+}
+    private boolean isExistPhoneNumber(String phoneNumber) {
+        List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+        for (ThanhVien thanhVien : listThanhVien) {
+            if (thanhVien.getSdt().equals(phoneNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+private boolean isExistPhoneNumberEdit(String phoneNumber, int maTV) {
+    List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
+    for (ThanhVien thanhVien : listThanhVien) {
+        if (thanhVien.getMaTV() != maTV && thanhVien.getSdt().equals(phoneNumber)) {
+            return true;
+        }
+    }
+    return false;
+}
+    private boolean isValidEmail(String email) {
+        // Biểu thức chính quy để kiểm tra định dạng email
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        // Kiểm tra sự trùng khớp với biểu thức chính quy
+        return email.matches(regex);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -4,14 +4,17 @@
  */
 package BLL;
 
+import DAL.HibernateUtil;
 import DAL.ThanhVien;
 import DAL.ThanhVienDAL;
 import java.util.List;
+import org.hibernate.Session;
 public class ThanhVienBLL {
       private ThanhVienDAL thanhvienDAL;
-    
+      Session session;
     public ThanhVienBLL() {
         thanhvienDAL = new ThanhVienDAL();
+         session = HibernateUtil.getSessionFactory().openSession();
     }
     
     public List loadThanhVien() {
@@ -44,4 +47,17 @@ public class ThanhVienBLL {
         ThanhVien tv = thanhvienDAL.getThanhVien(matv);
         return tv;
     }
+    public void updateThanhVien(int maTV, ThanhVien updatedThanhVien) {
+        thanhvienDAL.updateThanhVien(maTV, updatedThanhVien);
+    }
+    public boolean deleteThanhVien(int maTV) {
+    try {
+        thanhvienDAL.deleteThanhVien(maTV);
+        return true; // Trả về true nếu xóa thành công
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Trả về false nếu xóa không thành công
+    }
+}
+
 }

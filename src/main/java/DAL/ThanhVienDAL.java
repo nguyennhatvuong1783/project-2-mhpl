@@ -35,15 +35,51 @@ public class ThanhVienDAL {
         session.beginTransaction();
         session.save(tv); 
         session.getTransaction().commit();
-        session.close();   
+          
     }
     
-    public void updateThanhVien(ThanhVien tv) {
-        session.update(tv);
+    public void updateThanhVien(int maTV, ThanhVien updatedThanhVien) {
+    try {
+        session.beginTransaction();
+        ThanhVien existingThanhVien = session.get(ThanhVien.class, maTV);
+        if (existingThanhVien != null) {
+            existingThanhVien.setPassword(updatedThanhVien.getPassword());
+            existingThanhVien.setHoTen(updatedThanhVien.getHoTen());
+            existingThanhVien.setKhoa(updatedThanhVien.getKhoa());
+            existingThanhVien.setNganh(updatedThanhVien.getNganh());
+            existingThanhVien.setEmail(updatedThanhVien.getEmail());
+            existingThanhVien.setSdt(updatedThanhVien.getSdt());
+            session.update(existingThanhVien);
+            session.getTransaction().commit();
+        } else {
+            System.out.println("Không tìm thấy thành viên với mã " + maTV);
+        }
+    } catch (Exception e) {
+        if (session.getTransaction() != null) {
+            session.getTransaction().rollback();
+        }
+        e.printStackTrace();
+    } finally {
     }
+}
     
-    public void deleteThanhVien(ThanhVien tv) {
-        session.delete(tv);
+    public void deleteThanhVien(int maTV) {
+    try {
+        session.beginTransaction();
+        ThanhVien tv = session.get(ThanhVien.class, maTV);
+        if (tv != null) {
+            session.delete(tv);
+        } else {
+            // Xử lý trường hợp không tìm thấy đối tượng ThanhVien với mã maTV
+            System.out.println("Không tìm thấy đối tượng ThanhVien với mã: " + maTV);
+        }
+        session.getTransaction().commit();
+    } catch (Exception e) {
+        if (session.getTransaction() != null && session.getTransaction().isActive()) {
+            session.getTransaction().rollback();
+        }
+        e.printStackTrace();
     }
-     
+}
+    
 }

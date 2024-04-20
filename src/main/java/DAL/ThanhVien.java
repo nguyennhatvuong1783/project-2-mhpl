@@ -40,7 +40,7 @@ public class ThanhVien {
     private String email;
     
     @Column
-    private int sdt;
+    private String sdt; // Thay đổi kiểu dữ liệu thành String
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "thanhVienTTSD")
     private List<ThongTinSD> thongTinSD;
@@ -51,7 +51,7 @@ public class ThanhVien {
     public ThanhVien() {
     }
 
-    public ThanhVien(int maTV, String password, String hoTen, String khoa, String nganh, String email, int sdt) {
+    public ThanhVien(int maTV, String password, String hoTen, String khoa, String nganh, String email, String sdt) { // Thay đổi kiểu dữ liệu của tham số sdt
         this.maTV = maTV;
         this.password = password;
         this.hoTen = hoTen;
@@ -109,11 +109,11 @@ public class ThanhVien {
         this.email = email;
     }
 
-    public int getSdt() {
+    public String getSdt() { // Thay đổi kiểu dữ liệu của getter
         return sdt;
     }
 
-    public void setSdt(int sdt) {
+    public void setSdt(String sdt) { // Thay đổi kiểu dữ liệu của setter
         this.sdt = sdt;
     }
     
@@ -124,5 +124,5 @@ public class ThanhVien {
     public List<XuLy> getXuLy() {
         return xuLy;
     }
-
 }
+
