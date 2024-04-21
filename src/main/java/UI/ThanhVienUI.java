@@ -37,25 +37,17 @@ public class ThanhVienUI extends JPanel {
         initComponents();
         onload();
     }
-
     public DefaultTableModel loadTable() {
         List listThanhVien = thanhVienBLL.loadThanhVien();
         Object[][] datamodel;
         datamodel = thanhVienBLL.convertList(listThanhVien);
         String[] title = {"Mã thành viên", "Tên thành viên", "Password", "Email", "Số điện thoại", "Khoa", "Ngành"};
         DefaultTableModel model = new DefaultTableModel(datamodel, title) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        return model;
-    }
-
+            public boolean isCellEditable(int row, int column) {return false;}};return model;}
     public void onload() {
         dtm = loadTable();
         jTable.setAutoCreateRowSorter(true);
         jTable.setModel(dtm);
-
         for (int i = 0; i < jTable.getColumnCount(); i++) {
             TableColumn column = jTable.getColumnModel().getColumn(i);
             column.setCellEditor(null);

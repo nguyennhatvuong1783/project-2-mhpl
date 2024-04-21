@@ -6,7 +6,7 @@ package BLL;
 import DAL.HibernateUtil;
 import DAL.TTSD;
 import DAL.ThongTinSDDAL;
-//import DAL.ThongTinSD;
+import DAL.ThongTinSD;
 import java.util.List;
 import org.hibernate.Session;
 public class ThongTinSDBLL {
@@ -22,11 +22,12 @@ public class ThongTinSDBLL {
         
         return list;
     }
-//     public void createThongTin(TTSD ttsd) {
-//        thongtinsdDAL.addThongTinSD(ttsd);
-//    }
-    public Ttsd getUser(int MaTT) {
-        Ttsd tt=thongtinsdDAL.getThongTinSD(MaTT);
+     public void createThongTin(TTSD ttsd) {
+        thongtinsdDAL.addThongTinSD(ttsd);
+    }
+     
+    public ThongTinSD getUser(int MaTT) {
+        ThongTinSD tt=thongtinsdDAL.getThongTinSD(MaTT);
         return tt;
     }
      public TTSD getTTSDByMaTV(int maTV) {

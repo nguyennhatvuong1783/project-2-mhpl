@@ -12,6 +12,11 @@ import DAL.ThanhVien;
 import DAL.ThietBi;
 import DAL.ThongTinSD;
 import com.google.protobuf.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -369,7 +374,8 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtTra.setEnabled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
  else {
-            int MaTV;
+            int MaTT=Integer.parseInt(txtMaTT.getText()) ;
+            int MaTV=Integer.parseInt(txtMaTV.getText());
             String text = txtMaTV.getText();
             if (text.matches(".*[a-zA-Z].*")) {
                 JOptionPane.showMessageDialog(this, "Mã thành viên chỉ được chứa các chữ số.");
@@ -420,27 +426,30 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
                 return;
             }else {
-                if (isValidMaTV(String.valueOf(MaTT))) {
-                    if (!isExistMaTT(MaTT)) {
-                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email, sdt);
-                        tt.createUser(tv);
+                        Date DAT=stringToDate(Dat);
+                        Date VAO=stringToDate(Vao);
+                        Date MUON=stringToDate(Muon);
+                        Date TRA=stringToDate(Tra);
+                        TTSD ttsd = new TTSD(MaTT,MaTV,Integer.valueOf(maTB),DAT,VAO,MUON,TRA );
+                       // tt.createThongTin(ttsd); Khi chụp thì gỡ //
                         jButton2.setText("Thêm");
                         jButton3.setEnabled(true);
                         jButton4.setEnabled(true);
                         JOptionPane.showMessageDialog(this, "Thêm thành công!");
-                        reset();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Mã thành viên đã tồn tại.");
-                        return;
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thêm thất bại!");
-                    return;
-                }
+                       
+                
             } 
         }
     }
-    
+    public Date stringToDate(String dateTimeString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return sdf.parse(dateTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null; // Hoặc xử lý ngoại lệ theo ý muốn của bạn
+        }
+    }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     if (txtMaTT.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chọn thông tin cần xóa.");
@@ -485,7 +494,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtDatcho.setEnabled(true);
         } else {
 
-            int MaTV;
+            int MaTV=Integer.parseInt(txtMaTV.getText());
             String text = txtMaTV.getText();
             if (text.matches(".*[a-zA-Z].*")) {
                 JOptionPane.showMessageDialog(this, "Mã thành viên chỉ được chứa các chữ số.");
@@ -507,7 +516,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
                 return;
             }
-            String maTT = txtMaTT.getText();
+            int maTT = Integer.parseInt(txtMaTT.getText());
             String maTB = txtMaTB.getText();
             if (!maTB.equals("null")){
                 if (!isValidMaTB(maTB)) {
@@ -538,12 +547,16 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Thời gian Đặt chỗ không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }}
-             TTSD ttsd = new TTSD(String.valueOf(maTT),MaTV, maTB, Vao, Muon, Tra, Dat);
-                tt.updateThongTin(String.valueOf(maTT), ttsd);
-                jButton3.setText("Sửa");
-                jButton2.setEnabled(true);
-                jButton4.setEnabled(true);
-                JOptionPane.showMessageDialog(this, "Sửa thành công!");
+                        Date DAT=stringToDate(Dat);
+                        Date VAO=stringToDate(Vao);
+                        Date MUON=stringToDate(Muon);
+                        Date TRA=stringToDate(Tra);
+                        TTSD ttsd = new TTSD(maTT,MaTV,Integer.valueOf(maTB),DAT,VAO,MUON,TRA );
+                        tt.updateThongTin(maTT,ttsd);
+                        jButton3.setText("Sửa");
+                        jButton2.setEnabled(true);
+                        jButton4.setEnabled(true);
+                        JOptionPane.showMessageDialog(this, "Sửa thành công!");
     }//GEN-LAST:event_jButton3ActionPerformed
     }
     private boolean isValidMaTV(String maTV) {
@@ -580,7 +593,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         return false;
     }
     private boolean isValidDateFormat(String input) {
-    String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{1}";
+    String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}";
     return input.matches(dateFormatRegex);
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables

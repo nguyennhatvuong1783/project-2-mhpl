@@ -50,13 +50,20 @@ public class ThongTinSDDAL {
         return ttsd;
     }
     
-    public void addThongTinSD(ThongTinSD ttsd) {
+    public void addThongTinSD(TTSD ttsd) {
+        session.beginTransaction();
         session.save(ttsd);   
+        session.getTransaction().commit();
+    }
+   
+    public void updateThongTinSD(ThongTinSD ttsd) {
+        session.beginTransaction();
+        session.update(ttsd);
+         session.getTransaction().commit();
     }
     
-//    public void updateThongTinSD(ThongTinSD ttsd) {
-//        session.update(ttsd);
-//    }
+    
+   
      public void updateThongTin(int maTT, TTSD updatedThongTin) {
     try {
         session.beginTransaction();
