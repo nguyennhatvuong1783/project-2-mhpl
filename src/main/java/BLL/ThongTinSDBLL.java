@@ -11,16 +11,19 @@ import java.util.List;
 import org.hibernate.Session;
 public class ThongTinSDBLL {
     private ThongTinSDDAL thongtinsdDAL;
-    private TTSD ttsd;
+    private TTSD Ttsd;
     public ThongTinSDBLL(){
     thongtinsdDAL= new ThongTinSDDAL();
-    ttsd=new TTSD();
+    Ttsd=new TTSD();
     }
     public List loadThongTin(){
         List list;
         list = thongtinsdDAL.loadThongTinSD();
         
         return list;
+    }
+     public void createThongTin(TTSD ttsd) {
+        thongtinsdDAL.addThongTinSD(ttsd);
     }
     public ThongTinSD getUser(int MaTT) {
         ThongTinSD tt=thongtinsdDAL.getThongTinSD(MaTT);
@@ -44,9 +47,19 @@ public class ThongTinSDBLL {
         }
         return obj;
     }
-     public List loadTTSD(){
+    public List loadTTSD(){
         List list;
         list = thongtinsdDAL.loadTTSD();
         return list;
+    }
+     
+    public boolean deleteThongTin(int maTT) {
+        try {
+         thongtinsdDAL.deleteThongTin(maTT);
+        return true; // Trả về true nếu xóa thành công
+        }catch (Exception e) {
+        e.printStackTrace();
+        return false; // Trả về false nếu xóa không thành công
+        }   
     }
 }

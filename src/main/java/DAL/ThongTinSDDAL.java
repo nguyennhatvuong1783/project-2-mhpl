@@ -84,4 +84,22 @@ public TTSD getTTSDByMaTV(int maTV) {
         
         return thongTinSD;
     }
+
+  public void deleteThongTin(int maTT) {
+    try {
+        session.beginTransaction();
+        TTSD tt = session.get(TTSD.class, maTT);
+        if (tt != null) {
+            session.delete(tt);
+        } else {
+            System.out.println("Không tìm thấy thông tin với mã: " + maTT);
+        }
+        session.getTransaction().commit();
+    } catch (Exception e) {
+        if (session.getTransaction() != null && session.getTransaction().isActive()) {
+            session.getTransaction().rollback();
+        }
+        e.printStackTrace();
+    }
+}
 }

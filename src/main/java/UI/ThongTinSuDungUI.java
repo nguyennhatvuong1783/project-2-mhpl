@@ -4,14 +4,19 @@
  */
 package UI;
 
+import BLL.ThanhVienBLL;
 import BLL.ThietBiBLL;
 import BLL.ThongTinSDBLL;
+import DAL.TTSD;
+import DAL.ThanhVien;
+import DAL.ThietBi;
+import DAL.ThongTinSD;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author ADMIN
@@ -54,12 +59,12 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         txtVao.setEditable(false);
         txtMuon.setEditable(false);
         txtTra.setEditable(false);
-        cbTB.setEditable(false);
+        txtMaTB.setEditable(false);
         txtMaTT.setEnabled(false);
         txtMaTV.setEditable(false);
         txtMaTV.setEnabled(false);
         txtTenTB.setEnabled(false);
-        cbTB.setEnabled(false);
+        txtMaTB.setEnabled(false);
         txtDatcho.setEnabled(false);
         txtVao.setEnabled(false);
         txtMuon.setEnabled(false);
@@ -72,7 +77,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
 
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtMaTT = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtTenTB = new javax.swing.JTextField();
@@ -84,7 +88,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         txtMuon = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         txtTra = new javax.swing.JTextField();
-        cbTB = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -97,6 +100,8 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         jTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         txtMaTV = new javax.swing.JTextField();
+        txtMaTB = new javax.swing.JTextField();
+        txtMaTT = new javax.swing.JTextField();
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("Chi tiết thông tin sử dụng");
@@ -107,7 +112,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
 
         jLabel15.setText("Tên TB :");
 
-        jLabel16.setText("Đặt chỗ : ");
+        jLabel16.setText("Tgian Đặt  : ");
 
         jLabel17.setText("Tgian Vào: ");
 
@@ -120,10 +125,25 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         jLabel1.setText("Thông tin sử dụng");
 
         jButton2.setText("Thêm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Tìm kiếm");
@@ -186,23 +206,22 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                             .addComponent(txtTra)
                             .addComponent(txtDatcho)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtMaTT, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                    .addComponent(txtMaTV))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtMaTV, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                            .addComponent(txtMaTT))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cbTB, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtVao, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel14)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtMaTB, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtVao, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,9 +260,9 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)
-                            .addComponent(cbTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMaTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
@@ -312,9 +331,248 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTableMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jButton2.getText().equals("Thêm")) {
+            jButton2.setText("Lưu");
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+//            lblchitiet.setText("Thêm thông tin");
+            txtMaTT.setText("");
+            txtMaTV.setText("");
+            txtDatcho.setText("");
+            txtVao.setText("");
+            txtMuon.setText("");
+            txtTra.setText("");
+            txtTenTB.setText("");
+            txtMaTB.setText("");  
+            txtMaTT.setEditable(true);
+            txtMaTB.setEditable(true);
+            txtMaTV.setEditable(true);
+            txtDatcho.setEditable(true);
+            txtVao.setEditable(true);
+            txtMuon.setEditable(true);
+            txtTra.setEditable(true);
+            txtTenTB.setEditable(true);
+            txtMaTT.setEnabled(true);
+            txtMaTB.setEnabled(true);
+            txtMaTV.setEnabled(true);
+            txtDatcho.setEnabled(true);
+            txtVao.setEnabled(true);
+            txtMuon.setEnabled(true);
+            txtTra.setEnabled(true);
+            txtTenTB.setEnabled(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+ else {
+            int MaTV;
+            String text = txtMaTV.getText();
+            if (text.matches(".*[a-zA-Z].*")) {
+                JOptionPane.showMessageDialog(this, "Mã thành viên chỉ được chứa các chữ số.");
+                return;
+            }
+            long textTV = Long.parseLong(text);
+            if (textTV > 2147483647) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập một số nhỏ hơn 2147483647");
+                return;
+            }
+            if (text != null && !text.isEmpty()) {
+                if (text.matches("\\d+")) {
+                    MaTV = Integer.parseInt(text);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã thành viên không hợp lệ.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
+                return;
+            }
+            String maTT = txtMaTT.getText();
+            if (!isValidMaTT(maTT)) {
+            JOptionPane.showMessageDialog(this, "Mã thiết bị không hợp lệ. Vui lòng nhập 7 chữ số và chỉ chứa số 0 và 1.");
+            return;
+            }
+            String Vao = txtVao.getText();
+            if (!isValidDateFormat(Vao)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            String Muon = txtMuon.getText();
+            if (!isValidDateFormat(Muon)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            String Tra = txtTra.getText();
+            if (!isValidDateFormat(Tra)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            String Dat = txtDatcho.getText();
+            if (!isValidDateFormat(Dat)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            if (Vao == "" || Muon == "" || Tra== "" || Dat == "") {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
+                return;
+            } else {
+                if (isValidMaTV(String.valueOf(MaTV))) {
+                    if (!isExistMaTT(MaTV)) {
+                        TTSD tt = new TTSD(MaTV, MaTT, MaTB, TenTB, Dat, Vao, Muon, Tra);
+                        tt.createThongTin(tt);
+                        jButton2.setText("Thêm");
+                        jButton3.setEnabled(true);
+                        jButton4.setEnabled(true);
+                        JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                        reset();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Mã thông tin đã tồn tại.");
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại!");
+                    return;
+                }
+            }
+        }
+    }
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    if (txtMaTT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chọn thông tin cần xóa.");
+            return;
+        } else {
+             int confirmation = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa thông tin này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+    if (confirmation == JOptionPane.YES_OPTION) {
+        if (tt.deleteThongTin(Integer.parseInt(txtMaTT.getText()))) {
+            JOptionPane.showMessageDialog(this, "Xóa thông tin thành công.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thông tin thất bại vì có liên kết với khóa ngoại.");
+            return;
+        }
+    } else {
+        return;
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (txtMaTT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chọn thông tin cần sửa.");
+            return;
+        }    // TODO add your handling code here:  if (txtMaTV.getText().isEmpty()) {
+        if (jButton3.getText().equals("Sửa")) {
+            jButton3.setText("Lưu");
+            jButton2.setEnabled(false);
+            jButton4.setEnabled(false);
+            txtMaTT.setEditable(false);
+            txtMaTV.setEditable(true);
+            txtMaTB.setEditable(true);
+            txtTenTB.setEditable(true);
+            txtVao.setEditable(true);
+            txtMuon.setEditable(true);
+            txtTra.setEditable(true);
+            txtDatcho.setEditable(true);
+            txtMaTT.setEnabled(false);
+            txtMaTV.setEnabled(true);
+            txtMaTB.setEnabled(true);
+            txtTenTB.setEnabled(true);
+            txtVao.setEnabled(true);
+            txtMuon.setEnabled(true);
+            txtTra.setEnabled(true);
+            txtDatcho.setEnabled(true);
+        } else {
+
+            int MaTV;
+            String text = txtMaTV.getText();
+            if (text.matches(".*[a-zA-Z].*")) {
+                JOptionPane.showMessageDialog(this, "Mã thành viên chỉ được chứa các chữ số.");
+                return;
+            }
+            long textTV = Long.parseLong(text);
+            if (textTV > 2147483647) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập một số nhỏ hơn 2147483647");
+                return;
+            }
+            if (text != null && !text.isEmpty()) {
+                if (text.matches("\\d+")) {
+                    MaTV = Integer.parseInt(text);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã thành viên không hợp lệ.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
+                return;
+            }
+            String maTT = txtMaTT.getText();
+                if (!isValidMaTT(maTT)) {
+                    JOptionPane.showMessageDialog(this, "Mã thiết bị không hợp lệ. Vui lòng chỉ nhập các ký tự số 0 và 1.");
+                return;
+                }
+             String Vao = txtVao.getText();
+            if (!isValidDateFormat(Vao)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            String Muon = txtMuon.getText();
+            if (!isValidDateFormat(Muon)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            String Tra = txtTra.getText();
+            if (!isValidDateFormat(Tra)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+            String Dat = txtDatcho.getText();
+            if (!isValidDateFormat(Dat)) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            return;
+            }
+    }//GEN-LAST:event_jButton3ActionPerformed
+       
+    private boolean isValidMaTV(String maTV) {
+        // Kiểm tra xem maTV có 10 ký tự không
+        if (maTV.length() != 10) {
+            return false;
+        }
+
+        // Kiểm tra xem maTV chỉ chứa số không
+        if (!maTV.matches("[0-9]+")) {
+            return false;
+        }
+
+        return true;
+    }
+    
+    private boolean isValidMaTT(String maTT) {
+    // Kiểm tra xem maTT có đúng độ dài là 7 ký tự không
+        if (maTT.length() != 7) {
+            return false;
+        }
+
+    // Kiểm tra xem maTT chỉ chứa số 0 và 1 không
+        if (!maTT.matches("[01]+")) {
+            return false;
+        }
+
+    return true;
+    }
+
+    
+     private boolean isExistMaTT(int maTT) {
+        List<TTSD> listTTSD = tt.loadThongTin();
+        for (TTSD thongTinSD : listTTSD) {
+            if (thongTinSD.getMaTT() == maTT) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isValidDateFormat(String input) {
+    String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}";
+    return input.matches(dateFormatRegex);
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbTB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -335,6 +593,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
     private javax.swing.JTable jTable;
     private javax.swing.JTextField txtDatcho;
     private javax.swing.JTextField txtFindTV;
+    private javax.swing.JTextField txtMaTB;
     private javax.swing.JTextField txtMaTT;
     private javax.swing.JTextField txtMaTV;
     private javax.swing.JTextField txtMuon;
