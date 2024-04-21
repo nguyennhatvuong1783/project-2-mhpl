@@ -54,7 +54,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         TableColumn column = jTable.getColumnModel().getColumn(i);
         column.setCellEditor(null);
         txtMaTT.setEditable(false);
-        txtTenTB.setEditable(false);
         txtDatcho.setEditable(false);
         txtVao.setEditable(false);
         txtMuon.setEditable(false);
@@ -63,7 +62,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         txtMaTT.setEnabled(false);
         txtMaTV.setEditable(false);
         txtMaTV.setEnabled(false);
-        txtTenTB.setEnabled(false);
         txtMaTB.setEnabled(false);
         txtDatcho.setEnabled(false);
         txtVao.setEnabled(false);
@@ -78,8 +76,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        txtTenTB = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         txtDatcho = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -109,8 +105,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         jLabel2.setText("Mã TT :");
 
         jLabel14.setText("Mã TB:");
-
-        jLabel15.setText("Tên TB :");
 
         jLabel16.setText("Tgian Đặt  : ");
 
@@ -206,22 +200,15 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                             .addComponent(txtTra)
                             .addComponent(txtDatcho)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtMaTV, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                            .addComponent(txtMaTT))
+                                        .addComponent(txtMaTT, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel15)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel14)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtMaTB, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(txtVao, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtMaTB, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtVao, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                                    .addComponent(txtMaTV))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,8 +252,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                             .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(txtTenTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(txtMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -343,7 +328,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtVao.setText("");
             txtMuon.setText("");
             txtTra.setText("");
-            txtTenTB.setText("");
             txtMaTB.setText("");  
             txtMaTT.setEditable(true);
             txtMaTB.setEditable(true);
@@ -352,7 +336,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtVao.setEditable(true);
             txtMuon.setEditable(true);
             txtTra.setEditable(true);
-            txtTenTB.setEditable(true);
             txtMaTT.setEnabled(true);
             txtMaTB.setEnabled(true);
             txtMaTV.setEnabled(true);
@@ -360,7 +343,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtVao.setEnabled(true);
             txtMuon.setEnabled(true);
             txtTra.setEnabled(true);
-            txtTenTB.setEnabled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
  else {
             int MaTV;
@@ -385,53 +367,35 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
                 return;
             }
-            String maTT = txtMaTT.getText();
-            if (!isValidMaTT(maTT)) {
+            String maTB = txtMaTB.getText();
+            if (!isValidMaTB(maTB)) {
             JOptionPane.showMessageDialog(this, "Mã thiết bị không hợp lệ. Vui lòng nhập 7 chữ số và chỉ chứa số 0 và 1.");
             return;
             }
             String Vao = txtVao.getText();
             if (!isValidDateFormat(Vao)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Vào không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             String Muon = txtMuon.getText();
             if (!isValidDateFormat(Muon)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Mượn không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             String Tra = txtTra.getText();
             if (!isValidDateFormat(Tra)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Trả không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             String Dat = txtDatcho.getText();
             if (!isValidDateFormat(Dat)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Đặt chỗ tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             if (Vao == "" || Muon == "" || Tra== "" || Dat == "") {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
                 return;
-            } else {
-                if (isValidMaTV(String.valueOf(MaTV))) {
-                    if (!isExistMaTT(MaTV)) {
-                        TTSD tt = new TTSD(MaTV, MaTT, MaTB, TenTB, Dat, Vao, Muon, Tra);
-                        tt.createThongTin(tt);
-                        jButton2.setText("Thêm");
-                        jButton3.setEnabled(true);
-                        jButton4.setEnabled(true);
-                        JOptionPane.showMessageDialog(this, "Thêm thành công!");
-                        reset();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Mã thông tin đã tồn tại.");
-                        return;
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thêm thất bại!");
-                    return;
-                }
-            }
+            } 
         }
     }
     
@@ -450,7 +414,8 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         }
     } else {
         return;
-    }        // TODO add your handling code here:
+    }  
+    }// TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -465,7 +430,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtMaTT.setEditable(false);
             txtMaTV.setEditable(true);
             txtMaTB.setEditable(true);
-            txtTenTB.setEditable(true);
             txtVao.setEditable(true);
             txtMuon.setEditable(true);
             txtTra.setEditable(true);
@@ -473,7 +437,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             txtMaTT.setEnabled(false);
             txtMaTV.setEnabled(true);
             txtMaTB.setEnabled(true);
-            txtTenTB.setEnabled(true);
             txtVao.setEnabled(true);
             txtMuon.setEnabled(true);
             txtTra.setEnabled(true);
@@ -502,33 +465,33 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
                 return;
             }
-            String maTT = txtMaTT.getText();
-                if (!isValidMaTT(maTT)) {
+            String maTB = txtMaTB.getText();
+                if (!isValidMaTB(maTB)) {
                     JOptionPane.showMessageDialog(this, "Mã thiết bị không hợp lệ. Vui lòng chỉ nhập các ký tự số 0 và 1.");
                 return;
                 }
              String Vao = txtVao.getText();
             if (!isValidDateFormat(Vao)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Vào không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             String Muon = txtMuon.getText();
             if (!isValidDateFormat(Muon)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Mượn không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             String Tra = txtTra.getText();
             if (!isValidDateFormat(Tra)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Trả không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
             String Dat = txtDatcho.getText();
             if (!isValidDateFormat(Dat)) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày tháng không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
+            JOptionPane.showMessageDialog(this, "Thời gian Đặt chỗ không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }
     }//GEN-LAST:event_jButton3ActionPerformed
-       
+    }
     private boolean isValidMaTV(String maTV) {
         // Kiểm tra xem maTV có 10 ký tự không
         if (maTV.length() != 10) {
@@ -543,7 +506,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         return true;
     }
     
-    private boolean isValidMaTT(String maTT) {
+    private boolean isValidMaTB(String maTT) {
     // Kiểm tra xem maTT có đúng độ dài là 7 ký tự không
         if (maTT.length() != 7) {
             return false;
@@ -582,7 +545,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -597,7 +559,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaTT;
     private javax.swing.JTextField txtMaTV;
     private javax.swing.JTextField txtMuon;
-    private javax.swing.JTextField txtTenTB;
     private javax.swing.JTextField txtTra;
     private javax.swing.JTextField txtVao;
     // End of variables declaration//GEN-END:variables

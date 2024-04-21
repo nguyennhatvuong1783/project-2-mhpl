@@ -22,9 +22,9 @@ public class ThongTinSDBLL {
         
         return list;
     }
-     public void createThongTin(TTSD ttsd) {
-        thongtinsdDAL.addThongTinSD(ttsd);
-    }
+//     public void createThongTin(TTSD ttsd) {
+//        thongtinsdDAL.addThongTinSD(ttsd);
+//    }
     public ThongTinSD getUser(int MaTT) {
         ThongTinSD tt=thongtinsdDAL.getThongTinSD(MaTT);
         return tt;
