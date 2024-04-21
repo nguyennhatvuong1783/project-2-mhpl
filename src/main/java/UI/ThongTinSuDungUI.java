@@ -11,6 +11,7 @@ import DAL.TTSD;
 import DAL.ThanhVien;
 import DAL.ThietBi;
 import DAL.ThongTinSD;
+import com.google.protobuf.Timestamp;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -32,18 +33,41 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         onload();
     }
      public DefaultTableModel loadTable(){
-        List listThongTin = tt.loadTTSD();
-        Object[][] datamodel;
-        datamodel = tt.convertList(listThongTin);
-        String[] title = {"Mã thông tin", "Mã thành viên", "Mã thiết bị","Thời gian đặt chỗ","Thời gian vào","Thời gian mượn","Thời gian trả"};
-        DefaultTableModel model = new DefaultTableModel(datamodel, title){
-            public boolean isCellEditable(int row, int column)
-                {
-                  return false;
-                }
-       };	
-        return model;
+    List listThongTin = tt.loadTTSD();
+    Object[][] datamodel;
+    datamodel = tt.convertList(listThongTin);
+    
+    // Chuyển đổi java.sql.Timestamp thành chuỗi String
+    for (int i = 0; i < datamodel.length; i++) {
+        for (int j = 3; j < datamodel[i].length; j++) {
+            if (datamodel[i][j] instanceof Timestamp) {
+                Timestamp timestamp = (Timestamp) datamodel[i][j];
+                datamodel[i][j] = timestamp.toString();
+            }
+        }
     }
+    
+    // Loại bỏ ".0" từ các thành phần cuối cùng của datamodel
+    for (int i = 0; i < datamodel.length; i++) {
+        for (int j = 3; j < datamodel[i].length; j++) {
+            if (datamodel[i][j] instanceof String) {
+                String timeString = (String) datamodel[i][j];
+                if (timeString.endsWith(".0")) {
+                    datamodel[i][j] = timeString.substring(0, timeString.length() - 2);
+                }
+            }
+        }
+    }
+    
+    String[] title = {"Mã thông tin", "Mã thành viên", "Mã thiết bị","Thời gian đặt chỗ","Thời gian vào","Thời gian mượn","Thời gian trả"};
+    DefaultTableModel model = new DefaultTableModel(datamodel, title){
+        public boolean isCellEditable(int row, int column)
+            {
+              return false;
+            }
+   };	
+    return model;
+}
 
     public void onload(){
         dtm=loadTable();	
@@ -307,12 +331,12 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         if(i>=0){
            txtMaTT.setText(jTable.getModel().getValueAt(i, 0) != null ? jTable.getModel().getValueAt(i, 0).toString() : "null");
     txtMaTV.setText(jTable.getModel().getValueAt(i, 1) != null ? jTable.getModel().getValueAt(i, 1).toString() : "null");
-//    txtMaTB.setText(jTable.getModel().getValueAt(i, 2) != null ? jTable.getModel().getValueAt(i, 2).toString() : "null");
+    txtMaTB.setText(jTable.getModel().getValueAt(i, 2) != null ? jTable.getModel().getValueAt(i, 2).toString() : "null");
     txtDatcho.setText(jTable.getModel().getValueAt(i, 3) != null ? jTable.getModel().getValueAt(i, 3).toString() : "null");
     txtVao.setText(jTable.getModel().getValueAt(i, 4) != null ? jTable.getModel().getValueAt(i, 4).toString() : "null");
     txtMuon.setText(jTable.getModel().getValueAt(i, 5) != null ? jTable.getModel().getValueAt(i, 5).toString() : "null");
     txtTra.setText(jTable.getModel().getValueAt(i, 6) != null ? jTable.getModel().getValueAt(i, 6).toString() : "null");
-
+    
         }
     }//GEN-LAST:event_jTableMouseClicked
 
@@ -466,30 +490,35 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                 return;
             }
             String maTB = txtMaTB.getText();
+            if (!maTB.equals("null")){
                 if (!isValidMaTB(maTB)) {
                     JOptionPane.showMessageDialog(this, "Mã thiết bị không hợp lệ. Vui lòng chỉ nhập các ký tự số 0 và 1.");
                 return;
-                }
+                }}
              String Vao = txtVao.getText();
+             if (!Vao.equals("null")){
             if (!isValidDateFormat(Vao)) {
             JOptionPane.showMessageDialog(this, "Thời gian Vào không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
-            }
+            }}
             String Muon = txtMuon.getText();
+            if (!Muon.equals("null")){
             if (!isValidDateFormat(Muon)) {
             JOptionPane.showMessageDialog(this, "Thời gian Mượn không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
-            }
+            }}
             String Tra = txtTra.getText();
+            if (!Tra.equals("null")){
             if (!isValidDateFormat(Tra)) {
             JOptionPane.showMessageDialog(this, "Thời gian Trả không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
-            }
+            }}
             String Dat = txtDatcho.getText();
+            if (!Dat.equals("null")){
             if (!isValidDateFormat(Dat)) {
             JOptionPane.showMessageDialog(this, "Thời gian Đặt chỗ không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
-            }
+            }}
     }//GEN-LAST:event_jButton3ActionPerformed
     }
     private boolean isValidMaTV(String maTV) {
@@ -511,12 +540,6 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         if (maTT.length() != 7) {
             return false;
         }
-
-    // Kiểm tra xem maTT chỉ chứa số 0 và 1 không
-        if (!maTT.matches("[01]+")) {
-            return false;
-        }
-
     return true;
     }
 
@@ -532,7 +555,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
         return false;
     }
     private boolean isValidDateFormat(String input) {
-    String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}";
+    String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{1}";
     return input.matches(dateFormatRegex);
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
