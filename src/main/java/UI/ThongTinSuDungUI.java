@@ -419,6 +419,24 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             if (Vao == "" || Muon == "" || Tra== "" || Dat == "") {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin.");
                 return;
+            }else {
+                if (isValidMaTV(String.valueOf(MaTT))) {
+                    if (!isExistMaTT(MaTT)) {
+                        ThanhVien tv = new ThanhVien(MaTV, Pass, Hoten, Khoa, Nganh, Email, sdt);
+                        tt.createUser(tv);
+                        jButton2.setText("Thêm");
+                        jButton3.setEnabled(true);
+                        jButton4.setEnabled(true);
+                        JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                        reset();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Mã thành viên đã tồn tại.");
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại!");
+                    return;
+                }
             } 
         }
     }
@@ -489,6 +507,7 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên.");
                 return;
             }
+            String maTT = txtMaTT.getText();
             String maTB = txtMaTB.getText();
             if (!maTB.equals("null")){
                 if (!isValidMaTB(maTB)) {
@@ -519,6 +538,12 @@ public class ThongTinSuDungUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Thời gian Đặt chỗ không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD HH:mm:ss.");
             return;
             }}
+             TTSD ttsd = new TTSD(String.valueOf(maTT),MaTV, maTB, Vao, Muon, Tra, Dat);
+                tt.updateThongTin(String.valueOf(maTT), ttsd);
+                jButton3.setText("Sửa");
+                jButton2.setEnabled(true);
+                jButton4.setEnabled(true);
+                JOptionPane.showMessageDialog(this, "Sửa thành công!");
     }//GEN-LAST:event_jButton3ActionPerformed
     }
     private boolean isValidMaTV(String maTV) {

@@ -54,9 +54,34 @@ public class ThongTinSDDAL {
         session.save(ttsd);   
     }
     
-    public void updateThongTinSD(ThongTinSD ttsd) {
-        session.update(ttsd);
+//    public void updateThongTinSD(ThongTinSD ttsd) {
+//        session.update(ttsd);
+//    }
+     public void updateThongTin(int maTT, TTSD updatedThongTin) {
+    try {
+        session.beginTransaction();
+        TTSD existingThongTin = session.get(TTSD.class, maTT);
+        if (existingThongTin != null) {
+            existingThongTin.setMaTT(updatedThongTin.getMaTT());
+            existingThongTin.setMaTV(updatedThongTin.getMaTV());
+            existingThongTin.setMaTB(updatedThongTin.getMaTB());
+            existingThongTin.setTgDatcho(updatedThongTin.getTgDatcho());
+            existingThongTin.setTgVao(updatedThongTin.getTgVao());
+            existingThongTin.setTgMuon(updatedThongTin.getTgMuon());
+            existingThongTin.setTgTra(updatedThongTin.getTgTra());
+            session.update(existingThongTin);
+            session.getTransaction().commit();
+        } else {
+            System.out.println("Không tìm thấy thông tin với mã " + maTT);
+        }
+    } catch (Exception e) {
+        if (session.getTransaction() != null) {
+            session.getTransaction().rollback();
+        }
+        e.printStackTrace();
+    } finally {
     }
+}
     
     public void deleteThongTinSD(ThongTinSD ttsd) {
         session.delete(ttsd);
