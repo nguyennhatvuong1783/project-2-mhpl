@@ -762,108 +762,105 @@ public class ThanhVienUI extends JPanel {
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-     JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Chọn file Excel");
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
-    fileChooser.setFileFilter(filter);
-    int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        String filePath = selectedFile.getAbsolutePath();
-        System.out.println("Đường dẫn file đã chọn: " + filePath);
+    JFileChooser fileChooser = new JFileChooser();
+fileChooser.setDialogTitle("Chọn file Excel");
+FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
+fileChooser.setFileFilter(filter);
+int result = fileChooser.showOpenDialog(null);
+if (result == JFileChooser.APPROVE_OPTION) {
+    File selectedFile = fileChooser.getSelectedFile();
+    String filePath = selectedFile.getAbsolutePath();
+    System.out.println("Đường dẫn file đã chọn: " + filePath);
 
-        List<ThanhVien> thanhVienList = new ArrayList<>();
+    List<ThanhVien> thanhVienList = new ArrayList<>();
 
-        try (FileInputStream fileInputStream = new FileInputStream(filePath);
-             Workbook workbook = new XSSFWorkbook(fileInputStream)) {
+    try (FileInputStream fileInputStream = new FileInputStream(filePath);
+         Workbook workbook = new XSSFWorkbook(fileInputStream)) {
 
-            Sheet sheet = workbook.getSheetAt(0);
-            for (Row row : sheet) {
-                Cell firstCell = row.getCell(0);
-                if (firstCell == null || firstCell.getCellType() == CellType.BLANK) {
+        Sheet sheet = workbook.getSheetAt(0);
+        for (Row row : sheet) {
+            Cell firstCell = row.getCell(0);
+             if (firstCell == null || firstCell.getCellType() == CellType.BLANK) {
+        continue; // Bỏ qua dòng nếu ô đầu tiên trong dòng là null hoặc trống
+    }
+
+    // Kiểm tra nếu MaTV = 0, bỏ qua dòng đó và tiếp tục với dòng tiếp theo
+    if (firstCell.getCellType() == CellType.NUMERIC && firstCell.getNumericCellValue() == 0) {
+        continue;
+    }
+            ThanhVien thanhVien = new ThanhVien(); // Khai báo biến thanhVien ở đây
+            int cellIndex = 0;
+            for (Cell cell : row) {
+                if (row.getRowNum() == 0) {
                     continue;
                 }
-                ThanhVien thanhVien = new ThanhVien();
-                int cellIndex = 0;
-                for (Cell cell : row) {
-                    if (row.getRowNum() == 0) {
-                        continue;
-                    }
-                    switch (cellIndex) {
-                        case 0:
-                            thanhVien.setMaTV(Long.parseLong(getCellValueAsString(cell)));  
-                            break;
-                        case 1:
-                            thanhVien.setHoTen(getCellValueAsString(cell));
-                            break;
-                        case 2:
-                            thanhVien.setKhoa(getCellValueAsString(cell));
-                            break;
-                        case 3:
-                            thanhVien.setNganh(getCellValueAsString(cell));
-                            break;
-                        case 4:
-                            thanhVien.setSdt(getCellValueAsString(cell));
-                            break;
-                        case 5:
-                            thanhVien.setPassword(getCellValueAsString(cell));
-                            break;
-                        case 6:
-                            thanhVien.setEmail(getCellValueAsString(cell));
-                            break;
-                        default:
-                            break;
-                    }
-                    cellIndex++;
-                }
-                thanhVienList.add(thanhVien);
-            }}
-
-            List listThanhVien = thanhVienBLL.loadThanhVien();
-            Object[][] data = thanhVienBLL.convertList(listThanhVien);
-            boolean existed = false;
-
-            for (ThanhVien existing : thanhVienList) {
-                for (Object d : data) {
-                    ThanhVien thanhVienData = (ThanhVien) d; 
-                    if (existing.getMaTV() == thanhVienData.getMaTV()) {
-                        existed = true;
+                switch (cellIndex) {
+                    case 0:
+                        thanhVien.setMaTV(Long.parseLong(getCellValueAsString(cell)));  
                         break;
-                    }
+                    case 1:
+                        thanhVien.setHoTen(getCellValueAsString(cell));
+                        break;
+                    case 2:
+                        thanhVien.setKhoa(getCellValueAsString(cell));
+                        break;
+                    case 3:
+                        thanhVien.setNganh(getCellValueAsString(cell));
+                        break;
+                    case 4:
+                        thanhVien.setSdt(getCellValueAsString(cell));
+                        break;
+                    case 5:
+                        thanhVien.setPassword(getCellValueAsString(cell));
+                        break;
+                    case 6:
+                        thanhVien.setEmail(getCellValueAsString(cell));
+                        break;
+                    default:
+                        break;
                 }
-            
-            if (existed) {
-                int choice = JOptionPane.showConfirmDialog(null, "Mã thành viên đã tồn tại. Bạn muốn ghi đè không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    boolean exist = false;
-                    for (Iterator<ThanhVien> iterator = thanhVienList.iterator(); iterator.hasNext();) {
-                        ThanhVien existing = iterator.next();
-                        for (Object d : data) {
-                            ThanhVien thanhVienData = (ThanhVien) d; 
-                            if (existing.getMaTV() == thanhVienData.getMaTV()) {
-                                exist = true;
-                                iterator.remove();
-                                break;
-        }
-    }
-                    }
-                    // Thêm thành viên mới vào danh sách
-                    thanhVienList.add(iterator);
-                } else {
-                    
-                    continue;
-                }
-            } else {
-              
-                thanhVienList.add(thanhVien);
+                cellIndex++;
             }
+            thanhVienList.add(thanhVien);
+        }
+         thanhVienList.remove(0);
+       for (ThanhVien thanhVien : thanhVienList) {
+    System.out.println(thanhVien.toString());
+}
+
+        List listThanhVien = thanhVienBLL.loadThanhVien();
+        Object[][] data = thanhVienBLL.convertList(listThanhVien);
+        for (ThanhVien existing : thanhVienList) {
+            boolean existed = false;
+            for (int i=0 ;i<data.length;i++) { 
+                if (existing.getMaTV() == (long)data[i][0]) {
+                    existed = true;
+                    break;
+                }
             }
 
-        // Ghi danh sách thành viên vào cơ sở dữ liệu
-        ghiDanhSachThanhVienVaoCoSoDuLieu(thanhVienList);
-    } else {
-        System.out.println("Không có file được chọn.");
+            if (existed) {
+                int choice = JOptionPane.showConfirmDialog(null, "Mã thành viên: "+existing.getMaTV()+" đã tồn tại. Bạn muốn ghi đè không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    // Thêm thành viên mới vào danh sách
+                    thanhVienBLL.updateThanhVien(existing.getMaTV(), existing);
+                } else {
+                    continue;
+                }
+            } else{
+                thanhVienBLL.createUser(existing);
+            } 
+        }
+      JOptionPane.showMessageDialog(this, "import thành viên thành công.");      
+     
+        
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+} else {
+    System.out.println("Không có file được chọn.");
+}
+
     }//GEN-LAST:event_jButton6ActionPerformed
     private String getCellValueAsString(Cell cell) {
         switch (cell.getCellType()) {
