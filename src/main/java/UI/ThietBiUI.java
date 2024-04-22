@@ -43,7 +43,7 @@ public class ThietBiUI extends JPanel{
     private JTable tb;
     private JScrollPane sp;
     private JTextField txtSearch;
-    private JButton btnAdd, btnUpdate, btnDelete, btnReset, btnSearch;
+    private JButton btnAdd, btnUpdate, btnDelete, btnReset, btnSearch, btnImport;
     
     public ThietBiUI() {
         thietBiBLL = new ThietBiBLL();
@@ -61,6 +61,7 @@ public class ThietBiUI extends JPanel{
         btnUpdate = new JButton();
         btnDelete = new JButton();
         btnReset = new JButton();
+        btnImport = new JButton();
         sp = new JScrollPane();
         tb = new JTable();
         
@@ -93,7 +94,7 @@ public class ThietBiUI extends JPanel{
         pnlButton.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
 
         btnAdd.setText("Add");
-        btnAdd.setPreferredSize(new Dimension(150, 30));
+        btnAdd.setPreferredSize(new Dimension(100, 30));
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,7 +104,7 @@ public class ThietBiUI extends JPanel{
         pnlButton.add(btnAdd);
 
         btnUpdate.setText("Update");
-        btnUpdate.setPreferredSize(new Dimension(150, 30));
+        btnUpdate.setPreferredSize(new Dimension(100, 30));
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,7 +114,7 @@ public class ThietBiUI extends JPanel{
         pnlButton.add(btnUpdate);
 
         btnDelete.setText("Delete");
-        btnDelete.setPreferredSize(new Dimension(150, 30));
+        btnDelete.setPreferredSize(new Dimension(100, 30));
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,7 +124,7 @@ public class ThietBiUI extends JPanel{
         pnlButton.add(btnDelete);
 
         btnReset.setText("Reset");
-        btnReset.setPreferredSize(new Dimension(150, 30));
+        btnReset.setPreferredSize(new Dimension(100, 30));
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,6 +134,16 @@ public class ThietBiUI extends JPanel{
             }
         });
         pnlButton.add(btnReset);
+        
+        btnImport.setText("Import");
+        btnImport.setPreferredSize(new Dimension(100, 30));
+        btnImport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        pnlButton.add(btnImport);
 
         pnlControl.add(pnlButton);
 
