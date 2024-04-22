@@ -22,9 +22,10 @@ public class ThongTinSDBLL {
         
         return list;
     }
-//     public void createThongTin(TTSD ttsd) {
-//        thongtinsdDAL.addThongTinSD(ttsd);
-//    }
+     public void createThongTin(TTSD ttsd) {
+        thongtinsdDAL.addThongTinSD(ttsd);
+    }
+     
     public ThongTinSD getUser(int MaTT) {
         ThongTinSD tt=thongtinsdDAL.getThongTinSD(MaTT);
         return tt;
@@ -52,7 +53,9 @@ public class ThongTinSDBLL {
         list = thongtinsdDAL.loadTTSD();
         return list;
     }
-     
+    public void updateThongTin(int maTT, TTSD updatedThongTin) {
+        thongtinsdDAL.updateThongTin(maTT, updatedThongTin);
+    }
     public boolean deleteThongTin(int maTT) {
         try {
          thongtinsdDAL.deleteThongTin(maTT);
