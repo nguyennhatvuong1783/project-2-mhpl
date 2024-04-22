@@ -7,6 +7,7 @@ package UI;
 import BLL.ThietBiBLL;
 import DAL.ThietBi;
 import UI.FormAddThietBi;
+import WorkExcel.DocExcel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -140,7 +141,8 @@ public class ThietBiUI extends JPanel{
         btnImport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                DocExcel dx = new DocExcel();
+                dx.docFileExcelMonAn(thietBiBLL);
             }
         });
         pnlButton.add(btnImport);

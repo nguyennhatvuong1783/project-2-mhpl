@@ -39,6 +39,10 @@ public class ThietBiBLL {
         return obj;
     }
     
+    public void closeSession(){
+        thietBiDAL.close();
+    }
+    
     public void createCategory(ThietBi tb) {
         thietBiDAL.addThietBi(tb);
     }

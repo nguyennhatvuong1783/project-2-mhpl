@@ -34,10 +34,8 @@ public class ThietBiDAL {
     }
     
     public void addThietBi(ThietBi tb) {
-        session.beginTransaction();
         session.save(tb); 
         session.getTransaction().commit();
-        session.close();
         
     }
     
@@ -58,6 +56,10 @@ public class ThietBiDAL {
         List<ThietBi> thietbi = loadThietBi();
         int id = thietbi.get(thietbi.size()-1).getMaTB()+1;
         return id; 
+    }
+    
+    public void close(){
+        session.close();
     }
     
     public List searchThietBi(String tenTB) {
