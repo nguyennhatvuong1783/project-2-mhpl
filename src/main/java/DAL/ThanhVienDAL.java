@@ -38,7 +38,7 @@ public class ThanhVienDAL {
           
     }
     
-    public void updateThanhVien(int maTV, ThanhVien updatedThanhVien) {
+    public void updateThanhVien(long maTV, ThanhVien updatedThanhVien) {
     try {
         session.beginTransaction();
         ThanhVien existingThanhVien = session.get(ThanhVien.class, maTV);

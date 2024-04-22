@@ -22,7 +22,7 @@ import lombok.Data;
 @Table(name = "thanhvien")
 public class ThanhVien {
     @Id
-    private int maTV;
+    private long maTV; // Thay đổi kiểu dữ liệu của maTV từ int sang long
     
     @Column
     private String password;
@@ -40,7 +40,7 @@ public class ThanhVien {
     private String email;
     
     @Column
-    private String sdt; // Thay đổi kiểu dữ liệu thành String
+    private String sdt;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "thanhVienTTSD")
     private List<ThongTinSD> thongTinSD;
@@ -51,7 +51,7 @@ public class ThanhVien {
     public ThanhVien() {
     }
 
-    public ThanhVien(int maTV, String password, String hoTen, String khoa, String nganh, String email, String sdt) { // Thay đổi kiểu dữ liệu của tham số sdt
+    public ThanhVien(long maTV, String password, String hoTen, String khoa, String nganh, String email, String sdt) { // Thay đổi kiểu dữ liệu của tham số maTV và sdt
         this.maTV = maTV;
         this.password = password;
         this.hoTen = hoTen;
@@ -61,12 +61,12 @@ public class ThanhVien {
         this.sdt = sdt;
     }
 
-    public int getMaTV() {
+    public long getMaTV() {
         return maTV;
     }
 
-    public void setMaTV(int maTV) {
-        this.maTV = maTV;
+    public void setMaTV(long maTV) { 
+        this.maTV=maTV;
     }
     
     public String getPassword() {
@@ -109,11 +109,11 @@ public class ThanhVien {
         this.email = email;
     }
 
-    public String getSdt() { // Thay đổi kiểu dữ liệu của getter
+    public String getSdt() { 
         return sdt;
     }
 
-    public void setSdt(String sdt) { // Thay đổi kiểu dữ liệu của setter
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
     
@@ -125,4 +125,3 @@ public class ThanhVien {
         return xuLy;
     }
 }
-

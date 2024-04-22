@@ -11,14 +11,29 @@ import DAL.TTSD;
 import DAL.ThanhVien;
 import DAL.ThietBi;
 import DAL.ThongTinSD;
+import java.awt.FileDialog;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -103,6 +118,7 @@ public class ThanhVienUI extends JPanel {
         jTable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -255,6 +271,18 @@ public class ThanhVienUI extends JPanel {
             }
         });
 
+        jButton6.setText("Import");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,7 +322,7 @@ public class ThanhVienUI extends JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPassTV)
                             .addComponent(txtEmailTV))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,15 +333,18 @@ public class ThanhVienUI extends JPanel {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(63, 63, 63))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11)
-                            .addComponent(jButton2))
-                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel11)
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(317, 317, 317)
@@ -370,7 +401,8 @@ public class ThanhVienUI extends JPanel {
                             .addComponent(jButton2)
                             .addComponent(jButton3)
                             .addComponent(jButton4)
-                            .addComponent(jButton5))))
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
         );
@@ -608,7 +640,7 @@ public class ThanhVienUI extends JPanel {
             txtNganhTV.setEnabled(true);
             txtSdtTV.setEnabled(true);
         } else {
-            int MaTV;
+            long MaTV;
             String text = txtMaTV.getText();
             if (text.matches(".*[a-zA-Z].*")) {
                 JOptionPane.showMessageDialog(this, "Mã thành viên chỉ được chứa các chữ số.");
@@ -621,7 +653,7 @@ public class ThanhVienUI extends JPanel {
             }
             if (text != null && !text.isEmpty()) {
                 if (text.matches("\\d+")) {
-                    MaTV = Integer.parseInt(text);
+                    MaTV = Long.parseLong(text);
                 } else {
                     JOptionPane.showMessageDialog(this, "Mã thành viên không hợp lệ.");
                     return;
@@ -724,6 +756,133 @@ public class ThanhVienUI extends JPanel {
     }
 }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+     JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Chọn file Excel");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
+    fileChooser.setFileFilter(filter);
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String filePath = selectedFile.getAbsolutePath();
+        System.out.println("Đường dẫn file đã chọn: " + filePath);
+
+        List<ThanhVien> thanhVienList = new ArrayList<>();
+
+        try (FileInputStream fileInputStream = new FileInputStream(filePath);
+             Workbook workbook = new XSSFWorkbook(fileInputStream)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+            for (Row row : sheet) {
+                Cell firstCell = row.getCell(0);
+                if (firstCell == null || firstCell.getCellType() == CellType.BLANK) {
+                    continue;
+                }
+                ThanhVien thanhVien = new ThanhVien();
+                int cellIndex = 0;
+                for (Cell cell : row) {
+                    if (row.getRowNum() == 0) {
+                        continue;
+                    }
+                    switch (cellIndex) {
+                        case 0:
+                            thanhVien.setMaTV(Long.parseLong(getCellValueAsString(cell)));  
+                            break;
+                        case 1:
+                            thanhVien.setHoTen(getCellValueAsString(cell));
+                            break;
+                        case 2:
+                            thanhVien.setKhoa(getCellValueAsString(cell));
+                            break;
+                        case 3:
+                            thanhVien.setNganh(getCellValueAsString(cell));
+                            break;
+                        case 4:
+                            thanhVien.setSdt(getCellValueAsString(cell));
+                            break;
+                        case 5:
+                            thanhVien.setPassword(getCellValueAsString(cell));
+                            break;
+                        case 6:
+                            thanhVien.setEmail(getCellValueAsString(cell));
+                            break;
+                        default:
+                            break;
+                    }
+                    cellIndex++;
+                }
+                thanhVienList.add(thanhVien);
+            }
+
+            List listThanhVien = thanhVienBLL.loadThanhVien();
+            Object[][] data = thanhVienBLL.convertList(listThanhVien);
+            boolean existed = false;
+
+            for (ThanhVien existing : thanhVienList) {
+                for (Object d : data) {
+                    ThanhVien thanhVienData = (ThanhVien) d; 
+                    if (existing.getMaTV() == thanhVienData.getMaTV()) {
+                        existed = true;
+                        break;
+                    }
+                }
+            
+            if (existed) {
+                int choice = JOptionPane.showConfirmDialog(null, "Mã thành viên đã tồn tại. Bạn muốn ghi đè không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    boolean exist = false;
+                    for (Iterator<ThanhVien> iterator = thanhVienList.iterator(); iterator.hasNext();) {
+                        ThanhVien existin = iterator.next();
+                        for (Object d : data) {
+                            ThanhVien thanhVienData = (ThanhVien) d; 
+                            if (existin.getMaTV() == thanhVienData.getMaTV()) {
+                                exist = true;
+                                thanhVienBLL.updateThanhVien(existin.getMaTV(), existing);
+                                
+                                break;
+        }
+    }
+                    }
+                    // Thêm thành viên mới vào danh sách
+                } else {
+                    
+                    continue;
+                }
+            } else {
+              
+                thanhVienBLL.updateThanhVien(WIDTH, existing);
+            }}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Ghi danh sách thành viên vào cơ sở dữ liệu
+        //ghiDanhSachThanhVienVaoCoSoDuLieu(thanhVienList);
+    } else {
+        System.out.println("Không có file được chọn.");
+    }
+    }//GEN-LAST:event_jButton6ActionPerformed
+    private String getCellValueAsString(Cell cell) {
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue().toString();
+                } else {
+                    return String.valueOf((long) cell.getNumericCellValue());
+                }
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            default:
+                return "";
+        }
+    }
     private boolean isValidMaTV(String maTV) {
         // Kiểm tra xem maTV có 10 ký tự không
         if (maTV.length() != 10) {
@@ -738,7 +897,7 @@ public class ThanhVienUI extends JPanel {
         return true;
     }
 
-    private boolean isExistMaTV(int maTV) {
+    private boolean isExistMaTV(long maTV) {
         List<ThanhVien> listThanhVien = thanhVienBLL.loadThanhVien();
         for (ThanhVien thanhVien : listThanhVien) {
             if (thanhVien.getMaTV() == maTV) {
@@ -802,6 +961,7 @@ public class ThanhVienUI extends JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

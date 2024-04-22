@@ -47,7 +47,7 @@ public class ThanhVienBLL {
         ThanhVien tv = thanhvienDAL.getThanhVien(matv);
         return tv;
     }
-    public void updateThanhVien(int maTV, ThanhVien updatedThanhVien) {
+    public void updateThanhVien(long maTV, ThanhVien updatedThanhVien) {
         thanhvienDAL.updateThanhVien(maTV, updatedThanhVien);
     }
     public boolean deleteThanhVien(int maTV) {
