@@ -817,7 +817,7 @@ public class ThanhVienUI extends JPanel {
                     cellIndex++;
                 }
                 thanhVienList.add(thanhVien);
-            }
+            }}
 
             List listThanhVien = thanhVienBLL.loadThanhVien();
             Object[][] data = thanhVienBLL.convertList(listThanhVien);
@@ -837,32 +837,30 @@ public class ThanhVienUI extends JPanel {
                 if (choice == JOptionPane.YES_OPTION) {
                     boolean exist = false;
                     for (Iterator<ThanhVien> iterator = thanhVienList.iterator(); iterator.hasNext();) {
-                        ThanhVien existin = iterator.next();
+                        ThanhVien existing = iterator.next();
                         for (Object d : data) {
                             ThanhVien thanhVienData = (ThanhVien) d; 
-                            if (existin.getMaTV() == thanhVienData.getMaTV()) {
+                            if (existing.getMaTV() == thanhVienData.getMaTV()) {
                                 exist = true;
-                                thanhVienBLL.updateThanhVien(existin.getMaTV(), existing);
-                                
+                                iterator.remove();
                                 break;
         }
     }
                     }
                     // Thêm thành viên mới vào danh sách
+                    thanhVienList.add(iterator);
                 } else {
                     
                     continue;
                 }
             } else {
               
-                thanhVienBLL.updateThanhVien(WIDTH, existing);
-            }}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                thanhVienList.add(thanhVien);
+            }
+            }
 
         // Ghi danh sách thành viên vào cơ sở dữ liệu
-        //ghiDanhSachThanhVienVaoCoSoDuLieu(thanhVienList);
+        ghiDanhSachThanhVienVaoCoSoDuLieu(thanhVienList);
     } else {
         System.out.println("Không có file được chọn.");
     }
